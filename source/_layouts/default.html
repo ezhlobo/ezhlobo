@@ -1,0 +1,77 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="author" content="{{ site.author }}">
+
+    {% capture description %}{% if page.description %}{{ page.description }}{% else %}{{ content | raw_content }}{% endif %}{% endcapture %}
+    <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:150 }}">
+    {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endcapture %}
+    <link rel="canonical" href="{{ canonical }}">
+    <link href="{{ root_url }}/favicon.ico" rel="icon">
+
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:700&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <link href="{{ root_url }}/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <script src="{{ root_url }}/javascripts/main.js"></script>
+
+    <link href="{{ site.subscribe_rss }}" rel="alternate" title="{{site.title}}" type="application/atom+xml">
+  </head>
+  <body>
+    <header role="header">
+      <div class="blogname">
+        <a href="{{ root_url }}/">
+          <img class="blogavatar" src="{{ root_url }}/images/avatar.jpg" alt="">
+          <span>Блог</span> <span>Евгения Жлобо</span>
+        </a>
+      </div>
+    </header>
+    <nav role="navigation">
+      <ul>
+        <li><a href="{{ root_url }}/">Главная</a></li>
+        <li><a href="{{ root_url }}/about">Обо мне</a></li>
+        <li><a href="{{ root_url }}/blog/archives">Архив записей</a></li>
+      </ul>
+    </nav>
+
+    <div id="main">
+      <section id="content">
+        {{ content | expand_urls: root_url }}
+      </section>
+      <aside id="sidebar">
+        {% if site.simple_search %}<form id="search" action="{{ site.simple_search }}" method="get">
+          <fieldset role="search">
+            <input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}" />
+            <input tabindex="1" class="search" type="text" name="q" results="0" placeholder="Поиск"/>
+          </fieldset>
+        </form>{% endif %}
+
+      	<h3>Категории:</h3>
+        <div class="box">{% category_list %}</div>
+
+        <h3>Последние комментарии:</h3>
+        <div id="dsq-recentcomments-content">
+          <script src="http://ezhlobo.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&excerpt_length=140"></script>
+        </div>
+        <div id="dsq-recentcomments" class="box dsq-widget">
+          <script>getRecentComments()</script>
+        </div>
+      </aside>
+    </div>
+
+    <footer role="contentinfo">&copy; {{ site.author }}, {{ site.time | date: "%Y" }}</footer>
+
+    <div class="stats">
+      <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.1;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+    </div>
+  </body>
+</html>

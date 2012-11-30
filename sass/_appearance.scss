@@ -1,0 +1,97 @@
+#blog-archives H2 {
+	margin-top: 40px;
+	line-height: 1em;
+	font-weight: normal;
+}
+
+#dsq-recentcomments-content {
+	display: none;
+}
+#dsq-recentcomments {
+	font-size: 12px;
+	line-height: 1.5em;
+
+	.dsq-widget-author {
+		color: #255b8e;
+		font-weight: bold;
+	}
+
+	.dsq-widget-comment {
+		P {
+			text-align: justify;
+		}
+	}
+
+	.dsq-widget-meta {
+		font-size: 90%;
+		color: #666;
+		A {
+			color: #666;
+		}
+	}
+}
+
+#content {
+	UL {
+		margin-top: 15px;
+		list-style: circle inside;
+	}
+	LI {
+		line-height: 1.5em;
+	}
+	BLOCKQUOTE {
+		margin-left: 15px;
+		P {
+			color: #555;
+		}
+	}
+	STRONG {
+		font-weight: bold;
+	}
+	ARTICLE[role="archive-article"] {
+		margin-top: 10px;
+
+		H1 {
+			font-size: 25px;
+			font-family: $secondary-ff;
+			line-height: 1em;
+
+			A {
+				color: #333;
+				text-decoration: none;
+			}
+		}
+
+		.entry-meta {
+			margin-top: 5px;
+			font-size: 12px;
+			color: #666;
+			line-height: 24px;
+		}
+	}
+}
+
+.socialaccounts {
+	margin-top: 15px;
+	font-size: 0;
+
+	A {
+		width: 32px;
+		height: 32px;
+		margin: 0 10px 10px 0;
+		display: inline-block;
+		@include opacity(.7);
+		background: url(/images/accounts.png) no-repeat;
+
+		&:hover {@include opacity(1)}
+
+		&[rel="fb"] {background-position: 0 0;}
+		&[rel="4sq"] {background-position: -32px 0;}
+		&[rel="github"] {background-position: -64px 0;}
+		&[rel="gplus"] {background-position: -96px 0;}
+		&[rel="instagram"] {background-position: -128px 0;}
+		&[rel="linkedin"] {background-position: -160px 0;}
+		&[rel="twitter"] {background-position: -192px 0;}
+		&[rel="vk"] {background-position: -224px 0;}
+	}
+}

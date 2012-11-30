@@ -1,0 +1,46 @@
+HEADER[role=header] {
+	max-width: $max-width;
+	padding: 0 $main-padding;
+	margin: 30px auto 0;
+}
+
+NAV[role=navigation], #mobile_navigation {
+	margin: 20px 0 0;
+
+	UL {
+		padding: 0 $main-padding;
+	}
+}
+
+#main {
+	max-width: $max-width;
+	padding: 0 $main-padding;
+	margin: 30px auto 0;
+	@include clearfix;
+}
+
+#content {
+	width: 70%;
+	float: left;
+
+	@media screen and (max-width: 800px) {
+		width: 100%;
+		float: none;
+	}
+}
+
+#sidebar {
+	width: 26%;
+	float: right;
+	margin-top: 12px;
+
+	@media screen and (max-width: 800px) {
+		width: 100%;
+		float: none;
+	}
+}
+
+FOOTER[role=contentinfo] {
+	max-width: 1000px;
+	margin: 30px auto 20px;
+}
