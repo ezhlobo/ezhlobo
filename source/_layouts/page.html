@@ -24,3 +24,7 @@ layout: default
     </footer>
   {% endunless %}
 </article>
+
+{% unless page.comments == false %}
+  {% include post/comments.html %}
+{% endunless %}

@@ -2,7 +2,7 @@
 layout: page
 title: "Кто я такой"
 date: 2012-11-04 15:52
-comments: true
+comments: false
 sharing: true
 footer: false
 ---
