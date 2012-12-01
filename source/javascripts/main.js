@@ -28,6 +28,9 @@ function getRecentComments() {
   	var shorttitle = title.length > 18 ? title.replace(/(.{15}).*/, '$1') + '...' : title.replace(/(.{18}).*/, '$1');
   	titlelink.html(shorttitle).attr('title', title);
 
+  	// Title link url to comments block #disqus_thread
+  	titlelink.attr('href', titlelink.attr('href') + '#disqus_thread');
+
   	// Author unlink
   	var authorlink = $(this).find('.dsq-widget-user');
   	authorlink.after('<span class="dsq-widget-author">' + authorlink.text() + '</span>').remove();
@@ -38,6 +41,7 @@ function getRecentComments() {
   });
   var content = block.html();
   $('#dsq-recentcomments').html(content);
+  block.remove();
 }
 
 // Disqus widget to insert count of comments
