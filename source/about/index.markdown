@@ -7,7 +7,7 @@ sharing: true
 footer: false
 ---
 
-<img class="face" src="images/evgenyzhlobo.jpg" alt="Евгений Жлобо" title="Евгений Жлобо">
+<img class="face" src="{{ root_url }}/images/evgenyzhlobo.jpg" alt="Евгений Жлобо" title="Евгений Жлобо">
 
 Всего лишь обычный парнишка из Беларуси. Но таких больше нет.
 

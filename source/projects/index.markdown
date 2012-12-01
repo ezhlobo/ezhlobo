@@ -14,13 +14,13 @@ footer: false
 <ul id="projects">
 	<li class="project">
 		<a class="ownblog" href="https://bitbucket.org/longlime/evgen.zhlobo.info">
-			<img src="images/projects/ownblog.png">
+			<img src="{{ root_url }}/images/projects/ownblog.png">
 			<div class="description">Вот как-то появилась идея делиться своими мыслями на обычные вещи. Идея очень здорово реализовалась.</div>
 		</a>
 	</li>
 	<li class="project">
 		<a class="vkleaner" href="https://github.com/EvgenyZhlobo/vkleaner">
-			<img src="images/projects/vkleaner.jpg">
+			<img src="{{ root_url }}/images/projects/vkleaner.jpg">
 			<div class="description">Хром расширение для vk.com, которое скрывает нежелательные сообщения в ленте новостей.</div>
 		</a>
 	</li>
