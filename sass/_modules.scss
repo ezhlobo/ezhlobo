@@ -281,3 +281,17 @@ FOOTER[role="contentinfo"] {
 	}
 }
 /* /PROJECTS */
+
+/* ABOUTME
+ * ======= */
+.face {
+	width: 30%;
+	float: left;
+	margin: 0 15px 0 0;
+
+	@media screen and (max-width: 460px) {
+		width: 100%;
+		float: none;
+	}
+}
+/* /ABOUTME */
