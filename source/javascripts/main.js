@@ -22,22 +22,26 @@ function getRecentComments() {
 
   block.find('script').remove();
   $('.dsq-widget-item', block).each(function() {
-  	// Title cutting
-  	var titlelink = $(this).find('.dsq-widget-meta a:first');
-  	var title = $.trim(titlelink.text().replace('- Блог Евгения Жлобо', ''));
-  	var shorttitle = title.length > 18 ? title.replace(/(.{15}).*/, '$1') + '...' : title.replace(/(.{18}).*/, '$1');
-  	titlelink.html(shorttitle).attr('title', title);
+    var item = $(this);
 
-  	// Title link url to comments block #disqus_thread
-  	titlelink.attr('href', titlelink.attr('href') + '#disqus_thread');
+    // Title cutting
+    var titlelink = item.find('.dsq-widget-meta a:first');
+    var title = $.trim(titlelink.text().replace('- Блог Евгения Жлобо', ''));
+    var shorttitle = title.length > 18 ? title.replace(/(.{15}).*/, '$1') + '...' : title.replace(/(.{18}).*/, '$1');
+    titlelink.html(shorttitle).attr('title', title);
 
-  	// Author unlink
-  	var authorlink = $(this).find('.dsq-widget-user');
-  	authorlink.after('<span class="dsq-widget-author">' + authorlink.text() + '</span>').remove();
+    // Title link url to comments block #disqus_thread
+    titlelink.attr('href', titlelink.attr('href') + '#disqus_thread');
 
-  	// Time unlink
-  	var timelink = $(this).find('.dsq-widget-meta a:last');
-  	timelink.after(timelink.text()).remove();
+    // Userpic link to comments
+    var piclink = item.find('> a:eq(0)').attr('href', titlelink.attr('href'));
+
+    // Author link to comments
+    var authorlink = item.find('.dsq-widget-user').attr('href', titlelink.attr('href'));
+
+    // Time unlink
+    var timelink = item.find('.dsq-widget-meta a:last');
+    timelink.after(timelink.text()).remove();
   });
   var content = block.html();
   $('#dsq-recentcomments').html(content);
