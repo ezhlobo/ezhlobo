@@ -1,6 +1,6 @@
 {% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
@@ -72,7 +72,10 @@
     <footer role="contentinfo">&copy; {{ site.author }}, {{ site.time | date: "%Y" }}</footer>
 
     <div class="stats">
-      <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.1;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+      <!--LiveInternet counter MODIFIED-->
+      <script type="text/javascript">
+      document.write("<a href='http://www.liveinternet.ru/click'><img src='//counter.yadro.ru/hit?t44.1;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "'><\/a>")</script>
+      <!--/LiveInternet-->
     </div>
   </body>
 </html>
