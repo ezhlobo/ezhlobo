@@ -16,4 +16,5 @@ group :development do
   gem 'russian', '~> 0.6.0'
 end
 
+gem 'jekyll-press'
 gem 'sinatra', '~> 1.3.2'
