@@ -48,7 +48,7 @@ NAV[role="navigation"] {
 		font-size: $default-fs;
 	}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 500px) {
 		display: none;
 	}
 }
@@ -65,7 +65,7 @@ NAV[role="navigation"] {
 		// @include box-sizing(border-box);
 	}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 500px) {
 		display: block;
 	}
 }
