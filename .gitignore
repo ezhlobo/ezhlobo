@@ -4,4 +4,4 @@
 .pygments-cache
 .themes
 public
-source/stylesheets/screen.css
+source/stylesheets/*
