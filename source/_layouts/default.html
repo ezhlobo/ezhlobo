@@ -69,7 +69,12 @@
       </aside>
     </div>
 
-    <footer role="contentinfo">&copy; {{ site.author }}, {{ site.time | date: "%Y" }}</footer>
+    {% capture start_year %}2012{% endcapture %}
+    {% capture current_year %}{{ site.time | date: "%Y" }}{% endcapture %}
+    {% capture copy_date %}
+      {{ start_year }}{% if current_year != start_year %}—{{ current_year }}{% endif %}
+    {% endcapture %}
+    <footer role="contentinfo">&copy; {{ site.author }}, {{ copy_date }}</footer>
 
     <div class="stats">
       <!--LiveInternet counter MODIFIED-->
