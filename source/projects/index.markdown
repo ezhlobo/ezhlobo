@@ -13,7 +13,7 @@ footer: false
 
 <ul id="projects">
 	<li class="project">
-		<a class="ownblog" href="https://bitbucket.org/longlime/evgen.zhlobo.info">
+		<a class="ownblog" href="https://github.com/EvgenyZhlobo/ezhlobo">
 			<img src="{{ root_url }}/images/projects/ownblog.png">
 			<div class="description">Вот как-то появилась идея делиться своими мыслями на обычные вещи. Идея очень здорово реализовалась.</div>
 		</a>
