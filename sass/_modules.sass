@@ -1,0 +1,112 @@
+/** HEADER **/
+HEADER[role="header"]
+  position: relative
+
+  .blogname
+    padding-left: 50px
+    position: relative
+
+    SPAN
+      display: inline-block
+
+  .blogavatar
+    width: 40px
+    height: 40px
+    margin-top: -18px
+    left: 0
+    top: 50%
+    position: absolute
+
+/** NAVIGATION **/
+NAV[role="navigation"]
+  padding: 10px 0
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2)
+  @include background(linear-gradient(top, rgba(238, 238, 238, 0.7), #E9E9E9))
+
+  UL
+    max-width: $max-width
+    margin: auto
+    padding: 0 $main-padding
+    font-size: 0
+
+  LI
+    margin-right: 20px
+    display: inline-block
+    font-size: $default-fs
+
+/** MOBILE NAVIGATION **/
+#mobile_navigation
+  padding: 6px 0
+  display: none
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2)
+  @include background(linear-gradient(top, rgba(238, 238, 238, 0.7), #E9E9E9))
+
+  SELECT
+    max-width: $max-width
+    margin: 0 $main-padding
+    height: 24px
+
+/** CONTENT **/
+#content
+  // Importe articles with APPEARANCE
+  @import "articles/default"
+  @import "articles/main"
+  @import "articles/archive"
+
+  #disqus_thread
+    margin-top: 18px
+
+  #projects
+    list-style: none
+
+    .project
+      margin-bottom: 15px
+      @include clearfix
+
+      IMG
+        width: 48px
+        height: 48px
+        float: left
+
+      A
+        padding: 10px
+        display: block
+
+      .description
+        margin-left: 58px
+
+  .face
+    width: 30%
+    float: left
+    margin: 0 15px 0 0
+
+    @media screen and (max-width: 460px)
+      width: 100%
+      float: none
+
+/** SIDEBAR **/
+#sidebar
+  .box
+    margin-bottom: 25px
+
+  #search
+    margin: 0 -9px 25px
+
+    .search
+      @include box-sizing(border-box)
+      width: 100%
+      height: 36px
+      padding: 0 8px
+
+    @media screen and (max-width: 800px)
+      display: none
+
+/** STATISTICS **/
+.stats
+  position: absolute
+  left: 0
+  top: 0
+  visibility: hidden
+
+/** FOOTER **/
+FOOTER[role="contentinfo"]
