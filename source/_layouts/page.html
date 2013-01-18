@@ -5,7 +5,8 @@ layout: default
 <article role="page">
   {% if page.title %}
   <header>
-    <h1>{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
+    <h1>{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %} {% if page.type == "archive" %}<a href="{{ site_root }}/atom.xml"><img src="{{ site_root }}/images/rss.png" alt="RSS evgen.zhlobo.info Статьи блога"></a>{% endif %}
+    </h1>
   </header>
   {% endif %}
 
