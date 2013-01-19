@@ -18,8 +18,11 @@ NAV[role="navigation"]
 
 #main
   max-width: $max-width
-  padding: 0 $main-padding
-  margin: 30px auto 0
+  padding: 30px $main-padding 0
+  margin: auto
+  position: relative
+  z-index: 100
+  background: $background
   @include clearfix
 
 #content
@@ -41,4 +44,7 @@ NAV[role="navigation"]
 
 FOOTER[role="contentinfo"]
   max-width: 1000px
-  margin: 30px auto 20px
+  padding: 30px 20px 20px
+  margin: auto
+  position: relative
+  z-index: 100

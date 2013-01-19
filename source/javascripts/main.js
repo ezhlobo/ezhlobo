@@ -71,8 +71,44 @@ var DISQUSWIDGETS = function() {
   return disqus;
 }();
 
+var fixedClass = function() {
+  var $body = $(document.querySelector('body'));
+  var $window = $(window);
+  var $nav = $body.find('nav[role=navigation]');
+  var $main = $(document.getElementById('main'));
+  var $gotop = $body.find('> .gotop');
+
+  var maxTop = $nav.offset().top + $nav.outerHeight();
+
+  var gotop = function() {
+    $body
+      .scrollTop(maxTop)
+      .animate({scrollTop: 0}, {duration: 50, easing: 'linear'});
+  };
+
+  $gotop
+    .on('click', gotop);
+
+  $window
+    .on('scroll', function(event) {
+      var position = $window.scrollTop();
+      if (position >= maxTop) {
+        $body.addClass('down');
+      } else {
+        $body.removeClass('down');
+      }
+    });
+};
+
 // Let's go
+
+var isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
 $(function() {
   makeNav();
   DISQUSWIDGETS.getCount();
+
+  if (isDesktop) {
+    fixedClass();
+  }
 });
