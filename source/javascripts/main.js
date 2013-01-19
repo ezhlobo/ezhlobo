@@ -4,6 +4,9 @@
 /* share42.com | 20.11.2012 | (c) Dimox */
 (function($){$(function(){$('div.share42init').each(function(){u=$(this).attr('data-url');t=$(this).attr('data-title');f=$(this).attr('data-path');if(!f){function path(name){var sc=document.getElementsByTagName('script'),sr=new RegExp('^(.*/|)('+name+')([#?]|$)');for(var i=0,scL=sc.length;i<scL;i++){var m=String(sc[i].src).match(sr);if(m){if(m[1].match(/^((https?|file)\:\/{2,}|\w:[\/\\])/))return m[1];if(m[1].indexOf("/")==0)return m[1];b=document.getElementsByTagName('base');if(b[0]&&b[0].href)return b[0].href+m[1];else return document.location.pathname.match(/(.*[\/\\])/)[0]+m[1];}}return null;}f=path('share42.js');}if(!u)u=location.href;if(!t)t=document.title;u=encodeURIComponent(u);t=encodeURIComponent(t);t=t.replace('\'','%27');var s=new Array('"#" onclick="window.open(\'http://twitter.com/share?text='+t+'&url='+u+'\', \'_blank\', \'scrollbars=0, resizable=1, menubar=0, left=200, top=200, width=550, height=440, toolbar=0, status=0\');return false" title="Добавить в Twitter"','"#" onclick="window.open(\'http://vk.com/share.php?url='+u+'&title='+t+'\', \'_blank\', \'scrollbars=0, resizable=1, menubar=0, left=200, top=200, width=554, height=421, toolbar=0, status=0\');return false" title="Поделиться В Контакте"','"#" onclick="window.open(\'http://www.facebook.com/sharer.php?u='+u+'&t='+t+'\', \'_blank\', \'scrollbars=0, resizable=1, menubar=0, left=200, top=200, width=550, height=440, toolbar=0, status=0\');return false" title="Поделиться в Facebook"');var l='';for(j=0;j<s.length;j++)l+='<a rel="nofollow" style="display:inline-block;vertical-align:bottom;width:16px;height:16px;padding:0;outline:none;background:url('+f+'icons.png) -'+16*j+'px 0 no-repeat" href='+s[j]+' target="_blank"></a>';$(this).html('<span id="share42">'+l+'</span>');})})})(jQuery);
 
+/* Define variables */
+var $window = $(window);
+
 // Create a mobile navigation
 var makeNav = function() {
   var nav = $('nav[role=navigation]').after('<div id="mobile_navigation"></div>').next().append('<select></select>');
@@ -73,7 +76,6 @@ var DISQUSWIDGETS = function() {
 
 var fixedClass = function() {
   var $body = $(document.querySelector('body'));
-  var $window = $(window);
   var $nav = $body.find('nav[role=navigation]');
   var $main = $(document.getElementById('main'));
   var $gotop = $body.find('> .gotop');
@@ -100,6 +102,45 @@ var fixedClass = function() {
     });
 };
 
+var expandArticles = function() {
+  var toggle = function(block, value) {
+    block.animate({opacity: value, height: value}, 200);
+  };
+
+  var show = function(block) {
+    toggle(block, 'show');
+  };
+
+  var hide = function(block) {
+    toggle(block, 'hide');
+  };
+
+  var clicked = function() {
+    var content = $(this).closest('article').find('.index-content');
+    if (content.css('display') === 'none') {
+      show(content);
+    } else {
+      hide(content);
+    }
+  };
+
+  var $contents = $('.index-content');
+
+  var resized = function() {
+    if ($window.width() >= 800) {
+      $contents.show();
+    } else {
+      $contents.hide();
+    }
+  };
+
+  $('.index-expander')
+    .on('click', clicked);
+
+  $window
+    .on('resize', resized);
+};
+
 // Let's go
 
 var isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
@@ -111,4 +152,6 @@ $(function() {
   if (isDesktop) {
     fixedClass();
   }
+
+  expandArticles();
 });
