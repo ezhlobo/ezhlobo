@@ -22,8 +22,6 @@
     <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:700&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
     <link href="{{ root_url }}/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 
-    <script src="{{ root_url }}/javascripts/main.js"></script>
-
     <link href="{{ site.subscribe_rss }}" rel="alternate" title="{{site.title}}" type="application/atom+xml">
   </head>
   <body>
@@ -63,9 +61,7 @@
         <div id="dsq-recentcomments-content">
           <script src="http://ezhlobo.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&excerpt_length=140"></script>
         </div>
-        <div id="dsq-recentcomments" class="box dsq-widget">
-          <script>getRecentComments()</script>
-        </div>
+        <div id="dsq-recentcomments" class="box dsq-widget"></div>
       </aside>
     </div>
 
@@ -77,6 +73,8 @@
     <footer role="contentinfo">&copy; {{ site.author }}, {{ copy_date }}</footer>
 
     <div class="gotop"><span>Вверх</span></div>
+
+    <script src="{{ root_url }}/javascripts/main.js"></script>
 
     <div class="stats">
       <!--LiveInternet counter MODIFIED-->
