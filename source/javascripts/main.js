@@ -1,111 +1,16 @@
-// Page have been loaded
+/**
+ * elems.js
+ * @see https://gist.github.com/4598604
+ */
+var breaker={};var $each=function(e,t,n){if(Array.prototype.forEach&&e.forEach===Array.prototype.forEach){e.forEach(t,n)}else if(e.length===+e.length){for(var r=0,i=e.length;r<i;r++){if(t.call(n,e[r],r,e)===breaker)return}}else{for(var s in e){if(e.hasOwnProperty(s)){if(t.call(n,e[s],s,e)===breaker)return}}}};var TPL={start:"^\\s*",end:"\\s*$",tag:"([0-9a-z\\-_]+)",attr:"(\\[[a-z]+=[a-z]+\\])",flag:"i",ID:new RegExp(this.start+"#"+this.tag+this.end,this.flag),ONETAG:new RegExp(this.start+this.tag+this.end,this.flag),TAGWITHATTR:new RegExp(this.start+this.tag+this.attr+this.end,this.flag),CLASS:new RegExp(this.start+"\\."+this.tag+this.end,this.flag)};var $ge=function(e,t){var t=t||document,n;if(TPL.ID.test(e)){var r=e.match(TPL.ID)[0];n=[t.getElementById(r.replace(/^#/,""))]}else if(TPL.ONETAG.test(e)){var r=e.match(TPL.ONETAG)[0];n=t.getElementsByTagName(r)}else if(TPL.TAGWITHATTR.test(e)){var i=e.match(TPL.TAGWITHATTR);var s=t.getElementsByTagName(i[1]);var o=i[2].replace(/[\[\]]/g,"").split("=");var u=[];$each(s,function(e){if(e.getAttribute(o[0])===o[1]){u[u.length]=e}});n=u}else{if(t.getElementsByClassName&&TPL.CLASS.test(e)){var r=e.match(TPL.CLASS)[0].replace(/\./,"");n=t.getElementsByClassName(r)}else{n=t.querySelectorAll(e)}}return n};var $ce=function(e,t){var n=document.createElement(e);for(var r in t){n[r]=t[r]}return n};var $re=function(e){return e.parentNode.removeChild(e)};var $addCssClass=function(e,t){if(e.classList){return e.classList.add(t)}else{return e.className=e.className+" "+t}};var $removeCssClass=function(e,t){if(e.classList){return e.classList.remove(t)}else{var n=new RegExp("(^|\\s)"+t+"(\\s|$)","g");return e.className=e.className.replace(n,"")}};var $toggleClass=function(e,t){if(e.classList){return e.classList.toggle(t)}else{var n=new RegExp("(^|\\s)"+t+"(\\s|$)","g");var r=e.className;if(n.test(r)){e.className=r.replace(n,"")}else{e.className=r+" "+t}return e}};var $setStyle=function(e,t){for(var n in t){e.style[n]=t[n]}return e};
 
 /**
- * Establish the object that gets returned to break out of a loop iteration
- * @type {Object}
+ * Trim string
+ * @param  {String} str
+ * @return {String}
  */
-var breaker = {};
-
-/**
- * Iterator
- * @param  {Object}   obj
- * @param  {Function} callback
- */
-var each = function(obj, iterator, context) {
-  if (obj.length === +obj.length) {
-    for (var i = 0, l = obj.length; i < l; i++) {
-      if (iterator.call(context, obj[i], i, obj) === breaker) return;
-    }
-  }
-};
-
-var idTpl = /^\s*#([0-9a-z\-_]+)\s*$/i;
-var tagTpl = /^\s*([0-9a-z\-_]+)\s*$/i;
-var tagWithAttrTpl = /^\s*([0-9a-z\-_]+)(\[[a-z]+=[a-z]+\])\s*$/i;
-var classTpl = /^\s*\.([0-9a-z\-_]+)\s*$/i;
-
-/**
- * Get element by CSS selector
- * @param  {String} query   CSS selector
- * @param  {Elem}   context
- * @return {Elem}
- */
-var ge = function(query, context) {
-  var context = context || document,
-    elems;
-
-  // By ID
-  if (idTpl.test(query)) {
-    var selector = query.match(idTpl)[0];
-    elems = [context.getElementById(selector.replace(/^#/, ''))];
-
-  // By TAG
-  } else if (tagTpl.test(query)) {
-    var selector = query.match(tagTpl)[0];
-    elems = context.getElementsByTagName(selector);
-
-  // By TAG WITH ATTR
-  } else if (tagWithAttrTpl.test(query)) {
-    var match = query.match(tagWithAttrTpl);
-    var tags = context.getElementsByTagName(match[1]);
-
-    var attr = match[2].replace(/[\[\]]/g, '').split('=');
-
-    var result = [];
-    each(tags, function(tag) {
-      if (tag.getAttribute(attr[0]) === attr[1]) {
-        result[result.length] = tag;
-      }
-    });
-
-    elems = result;
-
-  } else {
-    if (context.getElementsByClassName && classTpl.test(query)) {
-      var selector = query.match(classTpl)[0].replace(/\./, '');
-      elems = context.getElementsByClassName(selector);
-    } else {
-      elems = context.querySelectorAll(query)
-    }
-  }
-
-  return elems;
-};
-
-/**
- * Create element
- * @param  {String} tag        Tag of new element
- * @param  {Object} attributes Object of attributes
- * @return {Elem}
- */
-var ce = function(tag, attributes) {
-  var elem = document.createElement(tag)
-
-  for (var name in attributes) {
-    elem[name] = attributes[name];
-  }
-
-  return elem;
-};
-
-/**
- * Remove element
- * @param  {Elem} elem
- * @return {Elem}
- */
-var re = function(elem) {
-  return elem.parentNode.removeChild(elem);
-};
-
-/**
- * Load js file
- * @param  {String} src
- * @return {Elem}       Script DOM node
- */
-var loadjs = function(src) {
-  var script = ce('script', {src: src});
-  document.getElementsByTagName('head')[0].appendChild(script);
-  return script;
+var $trim = function(str) {
+  return str.replace(/^\s+|\s+$/g, '');
 };
 
 /**
@@ -115,52 +20,26 @@ var loadjs = function(src) {
  * @param  {Function} callback
  * @return {Elem}
  */
-var on = function(elem, type, callback) {
+var $on = function(elem, type, callback) {
   return elem.addEventListener(type, callback, false);
 };
 
 /**
- * Trim string
- * @param  {String} str
- * @return {String}
+ * Load js file
+ * @param  {String} src Url to script
+ * @return {Elem}       Script DOM node
  */
-var trim = function(str) {
-  return str.replace(/^\s+|\s+$/g, '');
-};
-
-var addCssClass = function(elem, cssclass) {
-  if (elem.classList) {
-    return elem.classList.add(cssclass);
-  } else {
-    return elem.className = elem.className + ' ' + cssclass;
-  }
-};
-
-var removeCssClass = function(elem, cssclass) {
-  if (elem.classList) {
-    return elem.classList.remove(cssclass);
-  } else {
-    var regExp = new RegExp('(^|\\s)' + cssclass + '(\\s|$)', 'g');
-    return elem.className = elem.className.replace(regExp, '');
-  }
-};
-
-var toggleClass = function(elem, cssclass) {
-  if (elem.classList) {
-    return elem.classList.toggle(cssclass);
-  } else {
-    var regExp = new RegExp('(^|\\s)' + cssclass + '(\\s|$)', 'g');
-    var className = elem.className;
-    if (regExp.test(className)) {
-      elem.className = className.replace(regExp, '');
-    } else {
-      addCssClass(elem, cssclass);
-    }
-  }
+var $loadjs = function(src) {
+  var script = $ce('script', {src: src});
+  document.getElementsByTagName('head')[0].appendChild(script);
+  return script;
 };
 
 function Animate(opts) {
   var start = new Date;
+
+  // Before animating
+  if (opts.start) opts.start();
 
   var timer = setInterval(function() {
     var progress = (new Date - start) / opts.duration;
@@ -182,16 +61,16 @@ function Animate(opts) {
 (function(window, undefined) {
 
   var createMobileNavigation = function() {
-    var nav = ge('nav[role=navigation]')[0];
-    var mobile = ce('div', {id: 'mobile_navigation'});
+    var nav = $ge('nav[role=navigation]')[0];
+    var mobile = $ce('div', {id: 'mobile_navigation'});
 
     // Insert mobile navigation after desktop nav
     nav.parentNode.insertBefore(mobile, nav.nextSibling);
 
     // Create mobile items
     var items = '<select>\n<option value="">Навигация</option>\n';
-      var links = ge('a', nav);
-      each(links, function(link) {
+      var links = $ge('a', nav);
+      $each(links, function(link) {
         var href = link.getAttribute('href');
         var text = link.innerText;
         items += '<option value="' + href + '">&raquo; ' + text + '</option>\n';
@@ -200,7 +79,7 @@ function Animate(opts) {
     mobile.innerHTML = items;
 
     // Add event to selecting mobile items
-    on(ge('select', mobile)[0], 'change', function() {
+    $on($ge('select', mobile)[0], 'change', function() {
       window.location.href = this.value;
     });
   };
@@ -211,20 +90,20 @@ function Animate(opts) {
       linksHub = {};
 
     disqus.getCount = function() {
-      var links = ge('.entry-comments a'),
+      var links = $ge('.entry-comments a'),
         query = [];
 
-      each(links, function(link, i) {
+      $each(links, function(link, i) {
         var value = link.getAttribute('data-disqus-identifier');
         linksHub[i] = {element: link, type: 1, value: value};
         query[query.length] = i + '=1,' + encodeURIComponent(value);
       });
 
-      loadjs('http://ezhlobo.disqus.com/count.js?q=1&' + query.join('&'));
+      $loadjs('http://ezhlobo.disqus.com/count.js?q=1&' + query.join('&'));
     };
 
     disqus.displayCount = function(response) {
-      each(response.counts, function(item) {
+      $each(response.counts, function(item) {
         linksHub[item.uid].element.innerHTML = '<span>Комментарии</span>: ' + item.comments;
       });
     };
@@ -233,7 +112,7 @@ function Animate(opts) {
   }();
 
   var addShareLinks = function() {
-    each(ge('.share42init'), function(item, index) {
+    $each($ge('.share42init'), function(item, index) {
       var url = encodeURIComponent(item.getAttribute('data-url'));
       var title = encodeURIComponent(item.getAttribute('data-title'));
       var path = item.getAttribute('data-path');
@@ -248,7 +127,7 @@ function Animate(opts) {
 
       var result = '';
 
-      each(values, function(value, index) {
+      $each(values, function(value, index) {
         result += '<a rel="nofollow" style="display:inline-block;vertical-align:bottom;width:16px;height:16px;padding:0;outline:none;background:url('+path+'icons.png) -'+16*index+'px 0 no-repeat" href='+value+' target="_blank"></a>';
       });
 
@@ -257,20 +136,20 @@ function Animate(opts) {
   };
 
   var recentComments = function() {
-    var content = ge('#dsq-recentcomments-content')[0];
+    var content = $ge('#dsq-recentcomments-content')[0];
 
     // Remove script
-    re(ge('script', content)[0]);
+    $re($ge('script', content)[0]);
 
     var MakeBetter = function(elem) {
       var that = this;
 
       // Local Variables
-      var meta = ge('.dsq-widget-meta', elem)[0];
-      var titlelink = ge('a', meta)[0];
+      var meta = $ge('.dsq-widget-meta', elem)[0];
+      var titlelink = $ge('a', meta)[0];
 
       that.cutTitle = function() {
-        var title = trim(titlelink.innerText.replace('- Блог Евгения Жлобо', ''));
+        var title = $trim(titlelink.innerText.replace('- Блог Евгения Жлобо', ''));
         var shorttitle = title.length > 18 ? title.replace(/(.{15}).*/, '$1') + '...' : title.replace(/(.{18}).*/, '$1');
 
         titlelink.innerHTML = shorttitle;
@@ -286,28 +165,28 @@ function Animate(opts) {
       };
 
       that.correctPicLink = function() {
-        ge('a', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
+        $ge('a', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
         return that;
       };
 
       that.correctNameLink = function() {
-        ge('.dsq-widget-user', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
+        $ge('.dsq-widget-user', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
         return that;
       };
 
       that.unlinkTime = function() {
-        var timelink = ge('a', meta);
+        var timelink = $ge('a', meta);
         timelink = timelink[timelink.length - 1];
         var text = document.createTextNode(timelink.innerText);
 
         timelink.parentNode.appendChild(text);
-        re(timelink);
+        $re(timelink);
       };
 
       return that;
     };
 
-    each(ge('.dsq-widget-item', content), function(item) {
+    $each($ge('.dsq-widget-item', content), function(item) {
       new MakeBetter(item)
         .cutTitle()
         .correctTitleUrl()
@@ -316,29 +195,28 @@ function Animate(opts) {
         .unlinkTime();
     });
 
-    ge('#dsq-recentcomments')[0].innerHTML = content.innerHTML;
+    $ge('#dsq-recentcomments')[0].innerHTML = content.innerHTML;
   };
 
   var mobileIndexPage = function() {
-    var links = ge('.index-expander', ge('#content')[0]);
+    var links = $ge('.index-expander', $ge('#content')[0]);
 
-    each(links, function(link) {
-      on(link, 'click', function() {
-        var content = this.parentNode.parentNode.nextElementSibling;
-        toggleClass(content, 'opened');
+    $each(links, function(link) {
+      $on(link, 'click', function() {
+        var block = this.parentNode.parentNode.nextElementSibling;
+        $toggleClass(block, 'opened');
       });
     });
   };
 
   var goTop = function() {
-    var separator = ge('#main')[0].offsetTop;
+    var separator = $ge('#main')[0].offsetTop;
     var $body = document.body;
-    var $elem = ge('.gotop')[0];
+    var $elem = $ge('.gotop')[0];
 
     var scrollTop = function(value) {
       if (value) {
-        // @TODO
-        // Make universal for all browsers
+        // @TODO: Make universal for all browsers
         return $body.scrollTop = value;
       } else {
         return (document.documentElement && document.documentElement.scrollTop)
@@ -348,9 +226,9 @@ function Animate(opts) {
 
     var scrolled = function(e) {
       if (scrollTop() > separator) {
-        addCssClass($body, 'down');
+        $addCssClass($body, 'down');
       } else {
-        removeCssClass($body, 'down');
+        $removeCssClass($body, 'down');
       }
     };
 
@@ -365,9 +243,11 @@ function Animate(opts) {
       });
     };
 
-    on(window, 'scroll', scrolled);
-    on($elem, 'click', pageUp);
+    $on(window, 'scroll', scrolled);
+    $on($elem, 'click', pageUp);
   };
+
+  var isMobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
 
   // Let's start
   createMobileNavigation();
@@ -375,6 +255,9 @@ function Animate(opts) {
   addShareLinks();
   recentComments();
   mobileIndexPage();
-  goTop();
+
+  if (!isMobile) {
+    goTop();
+  }
 
 })(window);
