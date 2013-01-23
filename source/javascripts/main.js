@@ -10,7 +10,6 @@ var breaker = {};
  * Iterator
  * @param  {Object}   obj
  * @param  {Function} callback
- * @return {[type]}            [description]
  */
 var each = function(obj, iterator, context) {
   if (obj.length === +obj.length) {
@@ -128,6 +127,57 @@ var on = function(elem, type, callback) {
 var trim = function(str) {
   return str.replace(/^\s+|\s+$/g, '');
 };
+
+var addCssClass = function(elem, cssclass) {
+  if (elem.classList) {
+    return elem.classList.add(cssclass);
+  } else {
+    return elem.className = elem.className + ' ' + cssclass;
+  }
+};
+
+var removeCssClass = function(elem, cssclass) {
+  if (elem.classList) {
+    return elem.classList.remove(cssclass);
+  } else {
+    var regExp = new RegExp('(^|\\s)' + cssclass + '(\\s|$)', 'g');
+    return elem.className = elem.className.replace(regExp, '');
+  }
+};
+
+var toggleClass = function(elem, cssclass) {
+  if (elem.classList) {
+    return elem.classList.toggle(cssclass);
+  } else {
+    var regExp = new RegExp('(^|\\s)' + cssclass + '(\\s|$)', 'g');
+    var className = elem.className;
+    if (regExp.test(className)) {
+      elem.className = className.replace(regExp, '');
+    } else {
+      addCssClass(elem, cssclass);
+    }
+  }
+};
+
+function Animate(opts) {
+  var start = new Date;
+
+  var timer = setInterval(function() {
+    var progress = (new Date - start) / opts.duration;
+    if (progress > 1) progress = 1;
+
+    // Step
+    opts.step(progress);
+
+    if (progress === 1) {
+      clearInterval(timer);
+
+      // Callback after animation
+      if (opts.end) opts.end();
+    }
+
+  }, opts.delay || 10);
+}
 
 (function(window, undefined) {
 
@@ -272,25 +322,51 @@ var trim = function(str) {
   var mobileIndexPage = function() {
     var links = ge('.index-expander', ge('#content')[0]);
 
-    var toggle = function(elem) {
-      if (elem.classList) {
-        return elem.classList.toggle('opened');
-      } else {
-        var className = elem.className;
-        if (/(^|\s)opened(\s|$)/g.test(className)) {
-          elem.className = className.replace(/(^|\s)opened(\s|$)/g, '');
-        } else {
-          elem.className = className + ' opened';
-        }
-      }
-    };
-
     each(links, function(link) {
       on(link, 'click', function() {
         var content = this.parentNode.parentNode.nextElementSibling;
-        toggle(content);
+        toggleClass(content, 'opened');
       });
     });
+  };
+
+  var goTop = function() {
+    var separator = ge('#main')[0].offsetTop;
+    var $body = document.body;
+    var $elem = ge('.gotop')[0];
+
+    var scrollTop = function(value) {
+      if (value) {
+        // @TODO
+        // Make universal for all browsers
+        return $body.scrollTop = value;
+      } else {
+        return (document.documentElement && document.documentElement.scrollTop)
+          || ($body && $body.scrollTop);
+      }
+    };
+
+    var scrolled = function(e) {
+      if (scrollTop() > separator) {
+        addCssClass($body, 'down');
+      } else {
+        removeCssClass($body, 'down');
+      }
+    };
+
+    var pageUp = function() {
+      var max = scrollTop(separator);
+      Animate({
+        duration: 200,
+        step: function(x) {
+          var value = max - max * Math.pow(x, 1/5);
+          scrollTop(value);
+        }
+      });
+    };
+
+    on(window, 'scroll', scrolled);
+    on($elem, 'click', pageUp);
   };
 
   // Let's start
@@ -299,5 +375,6 @@ var trim = function(str) {
   addShareLinks();
   recentComments();
   mobileIndexPage();
+  goTop();
 
 })(window);
