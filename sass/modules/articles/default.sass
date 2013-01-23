@@ -49,3 +49,29 @@ ARTICLE
     text-shadow: 1px 1px 0 #fff
     line-height: 1.5em
     @include clearfix
+
+.entry-date, .entry-comments, .entry-categories
+  margin-right: 15px
+  float: left
+  A
+    color: #666
+
+.entry-comments A
+  text-decoration: none
+  SPAN
+    text-decoration: underline
+  &:hover SPAN
+    text-decoration: none
+
+.share42init
+  height: 16px
+  float: right
+
+  @media screen and (max-width:  800px)
+    display: none
+
+  A
+    @include opacity(.7)
+    margin-left: 6px
+    &:hover
+      @include opacity(1)
