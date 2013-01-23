@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Страница не найдена - Блог Евгения Жлобо</title>
-    <meta name="author" content="{{ site.author }}">
+    <meta name="author" content="Евгений Жлобо">
 
     <meta name="description" content="Страница не найдена - Блог Евгения Жлобо">
 
@@ -12,7 +12,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/404.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body id="not_found">
     <div class="not_found-content">
@@ -24,6 +24,13 @@
         <li><a href="/projects">Проекты</a></li>
       </ul>
     </div>
+
+    <form id="search-big" autocomplete="off" action="http://google.com/search" method="get">
+      <fieldset role="search">
+        <input type="hidden" name="q" value="site:evgen.zhlobo.info">
+        <input tabindex="1" class="search" type="text" name="q" results="0" placeholder="Искать в блоге">
+      </fieldset>
+    </form>
 
     <div class="stats">
       <!--LiveInternet counter MODIFIED-->
