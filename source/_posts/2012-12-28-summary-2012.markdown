@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Две тысячи двенадцатый год"
+description: "Какие фильмы смотрели, какую музыку слушали в 2012 году и история создания chrome расширения - vkleaner"
 date: 2012-12-31 17:00
 comments: true
 categories:

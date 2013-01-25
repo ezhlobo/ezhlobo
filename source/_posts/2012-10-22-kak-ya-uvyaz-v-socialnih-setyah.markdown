@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Как я увяз в социальных сетях"
+description: "Привлекательность социальных сетей, плюсы и минусы, за и против"
 date: 2012-10-22 22:31
 comments: true
 categories:

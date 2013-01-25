@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Куда расти и зачем писать"
+description: "История блоггера Жлобо Евгения или почему я буду делиться мыслями"
 date: 2012-09-30 00:36
 comments: true
 categories:

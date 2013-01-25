@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Первый интернет-магазин как первый блин"
+description: "Покупка ipod nano 16 blue в интернет-магазине belconsole.by или почему я больше никогда не буду здесь покупать"
 date: 2012-11-06 23:26
 comments: true
 categories:
