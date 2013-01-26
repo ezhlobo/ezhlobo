@@ -221,6 +221,10 @@ function Animate(opts) {
       });
     };
 
+    // Fix opera issue:
+    // Browser don't scroll when page reloaded
+    scrolled();
+
     $on(window, 'scroll', scrolled);
     $on($elem, 'click', pageUp);
   };
