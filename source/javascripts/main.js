@@ -136,66 +136,41 @@ function Animate(opts) {
   };
 
   var recentComments = function() {
-    var content = $ge('#dsq-recentcomments-content')[0];
+    var $content = $ge('#dsq-recentcomments-content')[0];
+    var $items = $ge('.dsq-widget-item', $content);
 
-    // Remove script
-    $re($ge('script', content)[0]);
+    var html = '<ul class="dsq-widget-list">';
 
-    var MakeBetter = function(elem) {
-      var that = this;
+    $each($items, function(item) {
+      var $meta = $ge('.dsq-widget-meta', item)[0];
+      var $firstMetaLink = $ge('a', $meta)[0];
 
-      // Local Variables
-      var meta = $ge('.dsq-widget-meta', elem)[0];
-      var titlelink = $ge('a', meta)[0];
+      var avatarUrl = $ge('.dsq-widget-avatar', item)[0].getAttribute('src');
+      var authorName = $ge('.dsq-widget-user', item)[0].innerText;
+      var commentText = $ge('.dsq-widget-comment', item)[0].innerHTML;
+      var postLink = $firstMetaLink.getAttribute('href') + '#disqus_thread';
+      var postTitle = $firstMetaLink.innerText.replace(' - Блог Евгения Жлобо', '');
+      var commentDate = $ge('a', $meta)[1].innerText;
 
-      that.cutTitle = function() {
-        var title = $trim(titlelink.innerText.replace('- Блог Евгения Жлобо', ''));
-        var shorttitle = title.length > 18 ? title.replace(/(.{15}).*/, '$1') + '...' : title.replace(/(.{18}).*/, '$1');
-
-        titlelink.innerHTML = shorttitle;
-        titlelink.setAttribute('title', title);
-        return that;
-      };
-
-      that.correctTitleUrl = function() {
-        var href = titlelink.getAttribute('href');
-
-        titlelink.setAttribute('href', href + '#disqus_thread');
-        return that;
-      };
-
-      that.correctPicLink = function() {
-        $ge('a', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
-        return that;
-      };
-
-      that.correctNameLink = function() {
-        $ge('.dsq-widget-user', elem)[0].setAttribute('href', titlelink.getAttribute('href'));
-        return that;
-      };
-
-      that.unlinkTime = function() {
-        var timelink = $ge('a', meta);
-        timelink = timelink[timelink.length - 1];
-        var text = document.createTextNode(timelink.innerText);
-
-        timelink.parentNode.appendChild(text);
-        $re(timelink);
-      };
-
-      return that;
-    };
-
-    $each($ge('.dsq-widget-item', content), function(item) {
-      new MakeBetter(item)
-        .cutTitle()
-        .correctTitleUrl()
-        .correctPicLink()
-        .correctNameLink()
-        .unlinkTime();
+      html += '<li class="dsq-widget-item">';
+        html += '<a href="' + postLink + '" class="dsq-widget-user">'
+          html += '<img src="' + avatarUrl + '" alt="Аватар ' + authorName + '" class="dsq-widget-avatar">';
+          html += authorName;
+        html += '</a> ';
+        html += '<span class="dsq-widget-comment">';
+          html += commentText;
+        html += '</span>';
+        html += '<p class="dsq-widget-meta">';
+          html += '<a href="' + postLink + '" title="' + postTitle + '">' + postTitle + '</a>';
+          html += '&nbsp;·&nbsp;' + commentDate;
+        html += '</p>';
+      html += '</li>';
     });
 
-    $ge('#dsq-recentcomments')[0].innerHTML = content.innerHTML;
+    html += '</ul>';
+
+    $re($content);
+    $ge('#dsq-recentcomments')[0].innerHTML = html;
   };
 
   var mobileIndexPage = function() {
