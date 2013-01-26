@@ -72,7 +72,7 @@ function Animate(opts) {
       var links = $ge('a', nav);
       $each(links, function(link) {
         var href = link.getAttribute('href');
-        var text = link.innerText;
+        var text = link.text;
         items += '<option value="' + href + '">&raquo; ' + text + '</option>\n';
         });
       items += '</select>\n';
@@ -146,11 +146,11 @@ function Animate(opts) {
       var $firstMetaLink = $ge('a', $meta)[0];
 
       var avatarUrl = $ge('.dsq-widget-avatar', item)[0].getAttribute('src');
-      var authorName = $ge('.dsq-widget-user', item)[0].innerText;
+      var authorName = $ge('.dsq-widget-user', item)[0].text;
       var commentText = $ge('.dsq-widget-comment', item)[0].innerHTML;
       var postLink = $firstMetaLink.getAttribute('href') + '#disqus_thread';
-      var postTitle = $firstMetaLink.innerText.replace(' - Блог Евгения Жлобо', '');
-      var commentDate = $ge('a', $meta)[1].innerText;
+      var postTitle = $firstMetaLink.text.replace(' - Блог Евгения Жлобо', '');
+      var commentDate = $ge('a', $meta)[1].text;
 
       html += '<li class="dsq-widget-item">';
         html += '<a href="' + postLink + '" class="dsq-widget-user">'
@@ -190,9 +190,12 @@ function Animate(opts) {
     var $elem = $ge('.gotop')[0];
 
     var scrollTop = function(value) {
-      if (value) {
-        // @TODO: Make universal for all browsers
-        return $body.scrollTop = value;
+      if (value !== undefined) {
+        if (parseInt(document.documentElement.scrollTop) === 0) {
+          return $body.scrollTop = value;
+        } else {
+          return document.documentElement.scrollTop = value;
+        }
       } else {
         return (document.documentElement && document.documentElement.scrollTop)
           || ($body && $body.scrollTop);
