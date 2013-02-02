@@ -1,99 +1,111 @@
 /**
- * elems.js
- * @see https://gist.github.com/4598604
+ * Hata framework
+ * @see https://github.com/EvgenyZhlobo/hata
  */
-var breaker={};var $each=function(e,t,n){if(Array.prototype.forEach&&e.forEach===Array.prototype.forEach){e.forEach(t,n)}else if(e.length===+e.length){for(var r=0,i=e.length;r<i;r++){if(t.call(n,e[r],r,e)===breaker)return}}else{for(var s in e){if(e.hasOwnProperty(s)){if(t.call(n,e[s],s,e)===breaker)return}}}};var TPL={start:"^\\s*",end:"\\s*$",tag:"([0-9a-z\\-_]+)",attr:"(\\[[a-z]+=[a-z]+\\])",flag:"i",ID:new RegExp(this.start+"#"+this.tag+this.end,this.flag),ONETAG:new RegExp(this.start+this.tag+this.end,this.flag),TAGWITHATTR:new RegExp(this.start+this.tag+this.attr+this.end,this.flag),CLASS:new RegExp(this.start+"\\."+this.tag+this.end,this.flag)};var $ge=function(e,t){var t=t||document,n;if(TPL.ID.test(e)){var r=e.match(TPL.ID)[0];n=[t.getElementById(r.replace(/^#/,""))]}else if(TPL.ONETAG.test(e)){var r=e.match(TPL.ONETAG)[0];n=t.getElementsByTagName(r)}else if(TPL.TAGWITHATTR.test(e)){var i=e.match(TPL.TAGWITHATTR);var s=t.getElementsByTagName(i[1]);var o=i[2].replace(/[\[\]]/g,"").split("=");var u=[];$each(s,function(e){if(e.getAttribute(o[0])===o[1]){u[u.length]=e}});n=u}else{if(t.getElementsByClassName&&TPL.CLASS.test(e)){var r=e.match(TPL.CLASS)[0].replace(/\./,"");n=t.getElementsByClassName(r)}else{n=t.querySelectorAll(e)}}return n};var $ce=function(e,t){var n=document.createElement(e);for(var r in t){n[r]=t[r]}return n};var $re=function(e){return e.parentNode.removeChild(e)};var $addCssClass=function(e,t){if(e.classList){return e.classList.add(t)}else{return e.className=e.className+" "+t}};var $removeCssClass=function(e,t){if(e.classList){return e.classList.remove(t)}else{var n=new RegExp("(^|\\s)"+t+"(\\s|$)","g");return e.className=e.className.replace(n,"")}};var $toggleClass=function(e,t){if(e.classList){return e.classList.toggle(t)}else{var n=new RegExp("(^|\\s)"+t+"(\\s|$)","g");var r=e.className;if(n.test(r)){e.className=r.replace(n,"")}else{e.className=r+" "+t}return e}};var $setStyle=function(e,t){for(var n in t){e.style[n]=t[n]}return e};
+(function(e,t,n){var r=a,i={},s={Tag:/^[-_a-z0-9]+$/i,Class:/^\.[-_a-z0-9]+$/i,Id:/^#[-_a-z0-9]+$/i},o=function(e,t){if(!(e.indexOf(t)>=0)){e[e.length]=t}return e},u=function(e){return Array.prototype.slice.call(e)},a=function(r,i){if(!(this instanceof a)){return new a(r,i)}if(i!==n){return(new a(i||t)).find(r)}if(!r){this.elems=[t];return this}var s=r==="body"?[t.body]:typeof r==="string"?a._query(t,r):r===e||r.nodeType?[r]:r instanceof a?u(r.elems):u(r);if(s.length===1&&s[0]==null){s.length=0}this.elems=s;return this};a._query=function(e,t){if(s.Id.test(t)){return[e.getElementById(t.substr(1))]}if(s.Class.test(t)){return u(e.getElementsByClassName(t.substr(1)))}if(s.Tag.test(t)){return u(e.getElementsByTagName(t))}return u(e.querySelectorAll(t))};a._find=function(e,t){if(!t){return e==null?[]:[e]}var n=t.nodeName?[t]:typeof t==="string"?a._query(e,t):[e];return n.length===1&&n[0]==null?[]:n};a.extend=function(e,t){if(!t){t=e;e=a.prototype}for(var n in t){if(hasOwnProperty.call(t,n)){e[n]=t[n]}}return e};a.extend({get:function(e){var t=this.elems;if(e!==n){var r=e<0?t.length+e:e;return t[r]}return t},eq:function(e){return new a(this.get(e))},is:function(e){return this.filter(e).get().length>0},each:function(e){return this.elems.forEach(e.bind(this))},find:function(e){var t=[];this.each(function(n){var r=0,i=a._find(n,e),s=i.length;while(r<s){o(t,i[r++])}});return new a(t)},closest:function(e){var n,r=[],i=(new a(e)).get();this.each(function(e){n=e;while(n!==t&&i.indexOf(n)<0){n=n.parentNode}o(r,n)});return new a(r)},filter:function(e){var t=new a(e),n=[];this.each(function(e){if(t.get().indexOf(e)>=0){o(n,e)}});return new a(n)}});e.hata=a;a.noConflict=function(){if(e.hata===a){e.hata=r}return a}})(window,window.document)
 
-/**
- * Trim string
- * @param  {String} str
- * @return {String}
- */
-var $trim = function(str) {
-  return str.replace(/^\s+|\s+$/g, '');
-};
-
-/**
- * Add event
- * @param  {Elem}     elem
- * @param  {Event}    type
- * @param  {Function} callback
- * @return {Elem}
- */
-var $on = function(elem, type, callback) {
-  return elem.addEventListener(type, callback, false);
-};
-
-/**
- * Load js file
- * @param  {String} src Url to script
- * @return {Elem}       Script DOM node
- */
-var $loadjs = function(src) {
-  var script = $ce('script', {src: src});
-  document.getElementsByTagName('head')[0].appendChild(script);
-  return script;
-};
-
-function Animate(opts) {
-  var start = new Date;
-
-  // Before animating
-  if (opts.start) opts.start();
-
-  var timer = setInterval(function() {
-    var progress = (new Date - start) / opts.duration;
-    if (progress > 1) progress = 1;
-
-    // Step
-    opts.step(progress);
-
-    if (progress === 1) {
-      clearInterval(timer);
-
-      // Callback after animation
-      if (opts.end) opts.end();
+hata.extend({
+  bind: function(eventType, callback) {
+    this.each(function(elem) {
+      elem.addEventListener(eventType, callback, false);
+    });
+    return this;
+  },
+  remove: function() {
+    this.each(function(elem) {
+      elem.parentNode.removeChild(elem)
+    });
+    return this;
+  },
+  html: function(html) {
+    if (html) {
+      this.each(function(elem) {
+        elem.innerHTML = html;
+      });
+      return this;
+    } else {
+      return this.get(-1).innerHTML;
     }
+  }
+});
 
-  }, opts.delay || 10);
-}
+Array.prototype.each = function(iterator, context) {
+  return this.forEach(iterator, context);
+};
+
+var $ = hata.noConflict();
 
 (function(window, undefined) {
+  // Create elements
+  var $ce = function(tagName, attrs) {
+    var elem = document.createElement(tagName);
+    for (var name in attrs) elem[name] = attrs[name];
+    return $(elem);
+  };
+
+  // Load js file
+  var $loadjs = function(src) {
+    var script = $ce('script', {src: src}).get(0);
+    return document.getElementsByTagName('head')[0].appendChild(script);
+  };
+
+  // @TODO
+  // Automatic step function
+  var Animate = function(opts) {
+    var start = new Date;
+
+    // Before animating
+    if (opts.start) opts.start();
+
+    var timer = setInterval(function() {
+      var progress = (new Date - start) / opts.duration;
+      if (progress > 1) progress = 1;
+
+      // Step
+      opts.step(progress);
+
+      if (progress === 1) {
+        clearInterval(timer);
+
+        // Callback after animation
+        if (opts.end) opts.end();
+      }
+
+    }, opts.delay || 10);
+  };
 
   var createMobileNavigation = function() {
-    var nav = $ge('nav[role=navigation]')[0];
-    var mobile = $ce('div', {id: 'mobile_navigation'});
+    var $nav = $('nav[role=navigation]');
+    var $mobile = $ce('div', {id: 'mobile_navigation'});
 
     // Insert mobile navigation after desktop nav
-    nav.parentNode.insertBefore(mobile, nav.nextSibling);
+    $nav.get(0).parentNode.insertBefore($mobile.get(0), $nav.get(0).nextSibling);
 
     // Create mobile items
     var items = '<select>\n<option value="">Навигация</option>\n';
-      var links = $ge('a', nav);
-      $each(links, function(link) {
-        var href = link.getAttribute('href');
-        var text = link.text;
-        items += '<option value="' + href + '">&raquo; ' + text + '</option>\n';
-        });
-      items += '</select>\n';
-    mobile.innerHTML = items;
+    $nav.find('a').each(function(link) {
+      var href = link.getAttribute('href');
+      var text = link.text;
+      items += '<option value="' + href + '">&raquo; ' + text + '</option>\n';
+    });
+    items += '</select>\n';
+
+    $mobile.html(items);
 
     // Add event to selecting mobile items
-    $on($ge('select', mobile)[0], 'change', function() {
+    $mobile.find('select').bind('change', function() {
       window.location.href = this.value;
     });
   };
 
   // Disqus widget to insert count of comments
   window.DISQUSWIDGETS = function() {
-    var disqus = {},
-      linksHub = {};
+    var disqus = {}, linksHub = {};
 
     disqus.getCount = function() {
-      var links = $ge('.entry-comments a'),
-        query = [];
+      var links = $('.entry-comments a'), query = [];
 
-      $each(links, function(link, i) {
+      links.each(function(link, i) {
         var value = link.getAttribute('data-disqus-identifier');
         linksHub[i] = {element: link, type: 1, value: value};
         query[query.length] = i + '=1,' + encodeURIComponent(value);
@@ -102,17 +114,19 @@ function Animate(opts) {
       $loadjs('http://ezhlobo.disqus.com/count.js?q=1&' + query.join('&'));
     };
 
+    var addCommentsCount = function(item) {
+      linksHub[item.uid].element.innerHTML = '<span>Комментарии</span>: ' + item.comments;
+    };
+
     disqus.displayCount = function(response) {
-      $each(response.counts, function(item) {
-        linksHub[item.uid].element.innerHTML = '<span>Комментарии</span>: ' + item.comments;
-      });
+      response.counts.each(addCommentsCount);
     };
 
     return disqus;
   }();
 
   var addShareLinks = function() {
-    $each($ge('.share42init'), function(item, index) {
+    $('.share42init').each(function(item, index) {
       var url = encodeURIComponent(item.getAttribute('data-url'));
       var title = encodeURIComponent(item.getAttribute('data-title'));
       var path = item.getAttribute('data-path');
@@ -127,7 +141,7 @@ function Animate(opts) {
 
       var result = '';
 
-      $each(values, function(value, index) {
+      values.each(function(value, index) {
         result += '<a rel="nofollow" style="display:inline-block;vertical-align:bottom;width:16px;height:16px;padding:0;outline:none;background:url('+path+'icons.png) -'+16*index+'px 0 no-repeat" href='+value+' target="_blank"></a>';
       });
 
@@ -136,21 +150,20 @@ function Animate(opts) {
   };
 
   var recentComments = function() {
-    var $content = $ge('#dsq-recentcomments-content')[0];
-    var $items = $ge('.dsq-widget-item', $content);
+    var $items = $('#dsq-recentcomments-content').remove().find('.dsq-widget-item');
 
     var html = '<ul class="dsq-widget-list">';
 
-    $each($items, function(item) {
-      var $meta = $ge('.dsq-widget-meta', item)[0];
-      var $firstMetaLink = $ge('a', $meta)[0];
+    var addNewItem = function(item) {
+      var $item = $(item);
+      var $metaLinks = $item.find('.dsq-widget-meta').find('a');
 
-      var avatarUrl = $ge('.dsq-widget-avatar', item)[0].getAttribute('src');
-      var authorName = $ge('.dsq-widget-user', item)[0].text;
-      var commentText = $ge('.dsq-widget-comment', item)[0].innerHTML;
-      var postLink = $firstMetaLink.getAttribute('href') + '#disqus_thread';
-      var postTitle = $firstMetaLink.text.replace(' - Блог Евгения Жлобо', '');
-      var commentDate = $ge('a', $meta)[1].text;
+      var avatarUrl = $item.find('.dsq-widget-avatar').get(0).getAttribute('src');
+      var authorName = $item.find('.dsq-widget-user').get(0).text;
+      var commentText = $item.find('.dsq-widget-comment').html();
+      var postLink = $metaLinks.get(0).getAttribute('href') + '#disqus_thread';
+      var postTitle = $metaLinks.get(0).text.replace(' - Блог Евгения Жлобо', '');
+      var commentDate = $metaLinks.get(-1).text;
 
       html += '<li class="dsq-widget-item">';
         html += '<a href="' + postLink + '" class="dsq-widget-user">'
@@ -165,29 +178,30 @@ function Animate(opts) {
           html += '&nbsp;·&nbsp;' + commentDate;
         html += '</p>';
       html += '</li>';
-    });
+    };
+
+    $items.each(addNewItem);
 
     html += '</ul>';
 
-    $re($content);
-    $ge('#dsq-recentcomments')[0].innerHTML = html;
+    $('#dsq-recentcomments').html(html);
   };
 
   var mobileIndexPage = function() {
-    var links = $ge('.index-expander', $ge('#content')[0]);
+    var clicked = function() {
+      this.parentNode.parentNode.nextElementSibling
+        .classList.toggle('opened');
+    };
 
-    $each(links, function(link) {
-      $on(link, 'click', function() {
-        var block = this.parentNode.parentNode.nextElementSibling;
-        $toggleClass(block, 'opened');
-      });
+    $('#content').find('.index-expander').each(function(link) {
+      $(link).bind('click', clicked);
     });
   };
 
   var goTop = function() {
-    var separator = $ge('#main')[0].offsetTop;
     var $body = document.body;
-    var $elem = $ge('.gotop')[0];
+
+    var separator = $('#main').get(0).offsetTop;
 
     var scrollTop = function(value) {
       if (value !== undefined) {
@@ -204,9 +218,9 @@ function Animate(opts) {
 
     var scrolled = function(e) {
       if (scrollTop() > separator) {
-        $addCssClass($body, 'down');
+        $body.classList.add('down');
       } else {
-        $removeCssClass($body, 'down');
+        $body.classList.remove('down');
       }
     };
 
@@ -222,11 +236,11 @@ function Animate(opts) {
     };
 
     // Fix opera issue:
-    // Browser don't scroll when page reloaded
+    // Opera don't scroll when page reloaded
     scrolled();
 
-    $on(window, 'scroll', scrolled);
-    $on($elem, 'click', pageUp);
+    $(window).bind('scroll', scrolled);
+    $('.gotop').bind('click', pageUp);
   };
 
   var isMobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
