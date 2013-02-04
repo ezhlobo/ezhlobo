@@ -1,6 +1,8 @@
 require "rubygems"
 require "bundler/setup"
 require "stringex"
+require "html_press"
+require "closure-compiler"
 
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
@@ -43,6 +45,45 @@ task :install, :theme do |t, args|
   mkdir_p public_dir
 end
 
+def get_html_files_in(dir)
+  html_files = []
+  Dir.glob("#{dir}/**/*.html").each do |filepath|
+    html_files << filepath
+  end
+  html_files
+end
+
+desc "Package app for production"
+task :package do
+  ENV['JEKYLL_ENV'] = 'production'
+
+  print "Compressing assets...\n"
+
+  get_html_files_in("public").each do |filepath|
+    print "[compress]: #{filepath}"
+
+    f = File.new(filepath)
+    content = HtmlPress.press f.read
+    f.close
+
+    f = File.new(filepath, "w")
+    f.puts content
+    f.close
+
+    print " OK\n"
+  end
+
+  js_path = "public/javascripts/main.js"
+  print "[compress]: #{js_path}"
+  js_minified = Closure::Compiler.new.compile(File.open(js_path, "r"))
+  f = File.new(js_path, "w")
+  f.puts js_minified
+  f.close
+  print " OK\n"
+
+  puts "Compressed.\n"
+end
+
 #######################
 # Working with Jekyll #
 #######################
@@ -53,6 +94,7 @@ task :generate do
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
   system "jekyll"
+  Rake::Task[:package].execute
 end
 
 desc "Watch the site and regenerate when it changes"

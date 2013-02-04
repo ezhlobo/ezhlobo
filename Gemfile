@@ -16,4 +16,6 @@ group :development do
   gem 'russian', '~> 0.6.0'
 end
 
+gem 'html_press'
+gem 'closure-compiler'
 gem 'sinatra', '~> 1.3.2'
