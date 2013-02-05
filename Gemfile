@@ -18,4 +18,5 @@ end
 
 gem 'html_press'
 gem 'closure-compiler'
+gem 'smusher'
 gem 'sinatra', '~> 1.3.2'

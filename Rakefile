@@ -3,6 +3,7 @@ require "bundler/setup"
 require "stringex"
 require "html_press"
 require "closure-compiler"
+require "smusher"
 
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
@@ -84,6 +85,15 @@ task :package do
   puts "Compressed.\n"
 end
 
+desc "Optimize images"
+task :optimize_imgs do
+  print "Optimizing images...\n"
+
+  system "smusher source"
+
+  puts "All images are optimized.\n"
+end
+
 #######################
 # Working with Jekyll #
 #######################
@@ -93,6 +103,7 @@ task :generate do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
+  Rake::Task[:optimize_imgs].execute
   system "jekyll"
   Rake::Task[:package].execute
 end
