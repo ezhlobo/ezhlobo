@@ -4,7 +4,24 @@
  */
 (function(e,t,n){var r=a,i={},s={Tag:/^[-_a-z0-9]+$/i,Class:/^\.[-_a-z0-9]+$/i,Id:/^#[-_a-z0-9]+$/i},o=function(e,t){if(!(e.indexOf(t)>=0)){e[e.length]=t}return e},u=function(e){return Array.prototype.slice.call(e)},a=function(r,i){if(!(this instanceof a)){return new a(r,i)}if(i!==n){return(new a(i||t)).find(r)}if(!r){this.elems=[t];return this}var s=r==="body"?[t.body]:typeof r==="string"?a._query(t,r):r===e||r.nodeType?[r]:r instanceof a?u(r.elems):u(r);if(s.length===1&&s[0]==null){s.length=0}this.elems=s;return this};a._query=function(e,t){if(s.Id.test(t)){return[e.getElementById(t.substr(1))]}if(s.Class.test(t)){return u(e.getElementsByClassName(t.substr(1)))}if(s.Tag.test(t)){return u(e.getElementsByTagName(t))}return u(e.querySelectorAll(t))};a._find=function(e,t){if(!t){return e==null?[]:[e]}var n=t.nodeName?[t]:typeof t==="string"?a._query(e,t):[e];return n.length===1&&n[0]==null?[]:n};a.extend=function(e,t){if(!t){t=e;e=a.prototype}for(var n in t){if(hasOwnProperty.call(t,n)){e[n]=t[n]}}return e};a.extend({get:function(e){var t=this.elems;if(e!==n){var r=e<0?t.length+e:e;return t[r]}return t},eq:function(e){return new a(this.get(e))},is:function(e){return this.filter(e).get().length>0},each:function(e){return this.elems.forEach(e.bind(this))},find:function(e){var t=[];this.each(function(n){var r=0,i=a._find(n,e),s=i.length;while(r<s){o(t,i[r++])}});return new a(t)},closest:function(e){var n,r=[],i=(new a(e)).get();this.each(function(e){n=e;while(n!==t&&i.indexOf(n)<0){n=n.parentNode}o(r,n)});return new a(r)},filter:function(e){var t=new a(e),n=[];this.each(function(e){if(t.get().indexOf(e)>=0){o(n,e)}});return new a(n)}});e.hata=a;a.noConflict=function(){if(e.hata===a){e.hata=r}return a}})(window,window.document)
 
+var nativeForEach = Array.prototype.forEach,
+  breaker = {};
+
+Array.prototype.each = function(iterator, context) {
+  if ( nativeForEach && this.forEach === nativeForEach ) {
+    this.forEach( iterator, context );
+  } else if ( this.length === +this.length ) {
+    for ( var i = 0, l = this.length; i < l; i++ ) {
+      if ( iterator.call( context, this[i], i, this ) === breaker ) return;
+    }
+  }
+};
+
 hata.extend({
+  each: function( iterator ) {
+    this.get().each( iterator );
+    return this;
+  },
   bind: function(eventType, callback) {
     this.each(function(elem) {
       elem.addEventListener(eventType, callback, false);
@@ -26,12 +43,24 @@ hata.extend({
     } else {
       return this.get(-1).innerHTML;
     }
+  },
+  toggleClass: function( className ) {
+    return this.each(function( elem ) {
+      if ( elem.classList ) {
+        elem.classList.toggle( className );
+      } else {
+        var current = elem.className;
+        var currentArr = current.split(' ');
+        if ( currentArr.indexOf( className ) === -1 ) {
+          elem.className = current + ' ' + className;
+        } else {
+          currentArr.splice( currentArr.indexOf(className), 1)
+          elem.className = currentArr.join(' ');
+        }
+      }
+    });
   }
 });
-
-Array.prototype.each = function(iterator, context) {
-  return this.forEach(iterator, context);
-};
 
 var $ = hata.noConflict();
 
@@ -189,8 +218,7 @@ var $ = hata.noConflict();
 
   var mobileIndexPage = function() {
     var clicked = function() {
-      this.parentNode.parentNode.nextElementSibling
-        .classList.toggle('opened');
+      $(this.parentNode.parentNode.nextElementSibling).toggleClass('opened');
     };
 
     $('#content').find('.index-expander').each(function(link) {
