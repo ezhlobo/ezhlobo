@@ -7,7 +7,7 @@
 var nativeForEach = Array.prototype.forEach,
   breaker = {};
 
-Array.prototype.each = function(iterator, context) {
+Array.prototype.each = function( iterator, context ) {
   if ( nativeForEach && this.forEach === nativeForEach ) {
     this.forEach( iterator, context );
   } else if ( this.length === +this.length ) {
@@ -22,26 +22,23 @@ hata.extend({
     this.get().each( iterator );
     return this;
   },
-  bind: function(eventType, callback) {
-    this.each(function(elem) {
-      elem.addEventListener(eventType, callback, false);
+  bind: function( eventType, callback ) {
+    return this.each(function( elem ) {
+      elem.addEventListener( eventType, callback, false );
     });
-    return this;
   },
   remove: function() {
-    this.each(function(elem) {
-      elem.parentNode.removeChild(elem)
+    return this.each(function( elem ) {
+      elem.parentNode.removeChild( elem )
     });
-    return this;
   },
-  html: function(html) {
-    if (html) {
-      this.each(function(elem) {
+  html: function( html ) {
+    if ( html ) {
+      return this.each(function( elem ) {
         elem.innerHTML = html;
       });
-      return this;
     } else {
-      return this.get(-1).innerHTML;
+      return this.get( -1 ).innerHTML;
     }
   },
   toggleClass: function( className ) {
@@ -64,62 +61,63 @@ hata.extend({
 
 var $ = hata.noConflict();
 
-(function(window, undefined) {
+(function( window, undefined ) {
   // Create elements
-  var $ce = function(tagName, attrs) {
-    var elem = document.createElement(tagName);
-    for (var name in attrs) elem[name] = attrs[name];
+  var $ce = function( tagName, attrs ) {
+    var elem = document.createElement( tagName );
+    for ( var name in attrs ) {
+      elem[name] = attrs[name];
+    }
     return $(elem);
   };
 
   // Load js file
-  var $loadjs = function(src) {
-    var script = $ce('script', {src: src}).get(0);
-    return document.getElementsByTagName('head')[0].appendChild(script);
+  var $loadjs = function( src ) {
+    var script = $ce('script', {
+      src: src
+    });
+    return document.getElementsByTagName('head')[0].appendChild( script.get(-1) );
   };
 
   // @TODO
   // Automatic step function
-  var Animate = function(opts) {
+  var Animate = function( opts ) {
     var start = new Date;
 
-    // Before animating
-    if (opts.start) opts.start();
-
     var timer = setInterval(function() {
-      var progress = (new Date - start) / opts.duration;
-      if (progress > 1) progress = 1;
-
-      // Step
-      opts.step(progress);
-
-      if (progress === 1) {
-        clearInterval(timer);
-
-        // Callback after animation
-        if (opts.end) opts.end();
+      var progress = ( new Date - start ) / opts.duration;
+      if ( progress > 1 ) {
+        progress = 1;
       }
 
-    }, opts.delay || 10);
+      opts.step( progress );
+
+      if ( progress === 1 ) {
+        clearInterval( timer );
+      }
+
+    }, opts.delay || 10 );
   };
 
   var createMobileNavigation = function() {
     var $nav = $('nav[role=navigation]');
-    var $mobile = $ce('div', {id: 'mobile_navigation'});
+    var $mobile = $ce('div', {
+      id: 'mobile_navigation'
+    });
 
     // Insert mobile navigation after desktop nav
-    $nav.get(0).parentNode.insertBefore($mobile.get(0), $nav.get(0).nextSibling);
+    $nav.get(0).parentNode.insertBefore( $mobile.get(0), $nav.get(0).nextSibling );
 
     // Create mobile items
     var items = '<select>\n<option value="">Навигация</option>\n';
-    $nav.find('a').each(function(link) {
+    $nav.find('a').each(function( link ) {
       var href = link.getAttribute('href');
       var text = link.text;
       items += '<option value="' + href + '">&raquo; ' + text + '</option>\n';
     });
     items += '</select>\n';
 
-    $mobile.html(items);
+    $mobile.html( items );
 
     // Add event to selecting mobile items
     $mobile.find('select').bind('change', function() {
@@ -129,38 +127,44 @@ var $ = hata.noConflict();
 
   // Disqus widget to insert count of comments
   window.DISQUSWIDGETS = function() {
-    var disqus = {}, linksHub = {};
+    var disqus = {},
+      linksHub = {};
 
     disqus.getCount = function() {
-      var links = $('.entry-comments a'), query = [];
+      var links = $('.entry-comments a'),
+        query = [];
 
-      links.each(function(link, i) {
+      links.each(function( link, i ) {
         var value = link.getAttribute('data-disqus-identifier');
-        linksHub[i] = {element: link, type: 1, value: value};
+        linksHub[i] = {
+          element: link,
+          type: 1,
+          value: value
+        };
         query[query.length] = i + '=1,' + encodeURIComponent(value);
       });
 
       $loadjs('http://ezhlobo.disqus.com/count.js?q=1&' + query.join('&'));
     };
 
-    var addCommentsCount = function(item) {
+    var addCommentsCount = function( item ) {
       linksHub[item.uid].element.innerHTML = '<span>Комментарии</span>: ' + item.comments;
     };
 
-    disqus.displayCount = function(response) {
-      response.counts.each(addCommentsCount);
+    disqus.displayCount = function( response ) {
+      response.counts.each( addCommentsCount );
     };
 
     return disqus;
   }();
 
   var addShareLinks = function() {
-    $('.share42init').each(function(item, index) {
-      var url = encodeURIComponent(item.getAttribute('data-url'));
-      var title = encodeURIComponent(item.getAttribute('data-title'));
-      var path = item.getAttribute('data-path');
+    $('.share42init').each(function( item, index ) {
+      var url = encodeURIComponent( item.getAttribute('data-url') ),
+        title = encodeURIComponent( item.getAttribute('data-title') ),
+        path = item.getAttribute('data-path');
 
-      title = title.replace('\'','%27');
+      title = title.replace('\'', '%27');
 
       var values = [
         '"#" onclick="window.open(\'http://twitter.com/share?text='+title+'&url='+url+'\', \'_blank\', \'scrollbars=0, resizable=1, menubar=0, left=200, top=200, width=550, height=440, toolbar=0, status=0\');return false" title="Добавить в Twitter"',
@@ -170,7 +174,7 @@ var $ = hata.noConflict();
 
       var result = '';
 
-      values.each(function(value, index) {
+      values.each(function( value, index ) {
         result += '<a rel="nofollow" style="display:inline-block;vertical-align:bottom;width:16px;height:16px;padding:0;outline:none;background:url('+path+'icons.png) -'+16*index+'px 0 no-repeat" href='+value+' target="_blank"></a>';
       });
 
@@ -179,35 +183,35 @@ var $ = hata.noConflict();
   };
 
   var recentComments = function() {
-    var $items = $('#dsq-recentcomments-content').remove().find('.dsq-widget-item');
+    var $items = $('#dsq-recentcomments-content').remove().find('.dsq-widget-item'),
 
-    var html = '<ul class="dsq-widget-list">';
+      html = '<ul class="dsq-widget-list">',
 
-    var addNewItem = function(item) {
-      var $item = $(item);
-      var $metaLinks = $item.find('.dsq-widget-meta').find('a');
+      addNewItem = function( item ) {
+        var $item = $(item),
+          $metaLinks = $item.find('.dsq-widget-meta').find('a'),
 
-      var avatarUrl = $item.find('.dsq-widget-avatar').get(0).getAttribute('src');
-      var authorName = $item.find('.dsq-widget-user').get(0).text;
-      var commentText = $item.find('.dsq-widget-comment').html();
-      var postLink = $metaLinks.get(0).getAttribute('href') + '#disqus_thread';
-      var postTitle = $metaLinks.get(0).text.replace(' - Блог Евгения Жлобо', '');
-      var commentDate = $metaLinks.get(-1).text;
+          avatarUrl = $item.find('.dsq-widget-avatar').get(0).getAttribute('src'),
+          authorName = $item.find('.dsq-widget-user').get(0).text,
+          commentText = $item.find('.dsq-widget-comment').html(),
+          postLink = $metaLinks.get(0).getAttribute('href') + '#disqus_thread',
+          postTitle = $metaLinks.get(0).text.replace(' - Блог Евгения Жлобо', ''),
+          commentDate = $metaLinks.get(-1).text;
 
-      html += '<li class="dsq-widget-item">';
-        html += '<a href="' + postLink + '" class="dsq-widget-user">'
-          html += '<img src="' + avatarUrl + '" alt="Аватар ' + authorName + '" class="dsq-widget-avatar">';
-          html += authorName;
-        html += '</a> ';
-        html += '<span class="dsq-widget-comment">';
-          html += commentText;
-        html += '</span>';
-        html += '<p class="dsq-widget-meta">';
-          html += '<a href="' + postLink + '" title="' + postTitle + '">' + postTitle + '</a>';
-          html += '&nbsp;·&nbsp;' + commentDate;
-        html += '</p>';
-      html += '</li>';
-    };
+        html += '<li class="dsq-widget-item">';
+          html += '<a href="' + postLink + '" class="dsq-widget-user">'
+            html += '<img src="' + avatarUrl + '" alt="Аватар ' + authorName + '" class="dsq-widget-avatar">';
+            html += authorName;
+          html += '</a> ';
+          html += '<span class="dsq-widget-comment">';
+            html += commentText;
+          html += '</span>';
+          html += '<p class="dsq-widget-meta">';
+            html += '<a href="' + postLink + '" title="' + postTitle + '">' + postTitle + '</a>';
+            html += '&nbsp;·&nbsp;' + commentDate;
+          html += '</p>';
+        html += '</li>';
+      };
 
     $items.each(addNewItem);
 
@@ -221,31 +225,30 @@ var $ = hata.noConflict();
       $(this.parentNode.parentNode.nextElementSibling).toggleClass('opened');
     };
 
-    $('#content').find('.index-expander').each(function(link) {
+    $('#content').find('.index-expander').each(function( link ) {
       $(link).bind('click', clicked);
     });
   };
 
   var goTop = function() {
-    var $body = document.body;
+    var $body = document.body,
 
-    var separator = $('#main').get(0).offsetTop;
+      separator = $('#main').get(0).offsetTop,
 
-    var scrollTop = function(value) {
-      if (value !== undefined) {
-        if (parseInt(document.documentElement.scrollTop) === 0) {
-          return $body.scrollTop = value;
+      scrollTop = function( value ) {
+        if ( value !== undefined ) {
+          if ( parseInt( document.documentElement.scrollTop ) === 0 ) {
+            return $body.scrollTop = value;
+          } else {
+            return document.documentElement.scrollTop = value;
+          }
         } else {
-          return document.documentElement.scrollTop = value;
+          return (document.documentElement && document.documentElement.scrollTop) || ($body && $body.scrollTop);
         }
-      } else {
-        return (document.documentElement && document.documentElement.scrollTop)
-          || ($body && $body.scrollTop);
-      }
-    };
+      };
 
-    var scrolled = function(e) {
-      if (scrollTop() > separator) {
+    var scrolled = function( e ) {
+      if ( scrollTop() > separator ) {
         $body.classList.add('down');
       } else {
         $body.classList.remove('down');
@@ -256,9 +259,9 @@ var $ = hata.noConflict();
       var max = scrollTop(separator);
       Animate({
         duration: 200,
-        step: function(x) {
-          var value = max - max * Math.pow(x, 1/5);
-          scrollTop(value);
+        step: function( x ) {
+          var value = max - max * Math.pow( x, 1/5 );
+          scrollTop( value );
         }
       });
     };
@@ -271,8 +274,6 @@ var $ = hata.noConflict();
     $('.gotop').bind('click', pageUp);
   };
 
-  var isMobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
-
   // Let's start
   createMobileNavigation();
   DISQUSWIDGETS.getCount();
@@ -280,8 +281,10 @@ var $ = hata.noConflict();
   recentComments();
   mobileIndexPage();
 
-  if (!isMobile) {
+  var isMobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
+
+  if ( !isMobile ) {
     goTop();
   }
 
-})(window);
+})( window );
