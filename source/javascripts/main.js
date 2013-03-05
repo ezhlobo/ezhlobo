@@ -1,8 +1,5 @@
-/**
- * Hata framework
- * @see https://github.com/EvgenyZhlobo/hata
- */
-(function(e,t,n){var r=a,i={},s={Tag:/^[-_a-z0-9]+$/i,Class:/^\.[-_a-z0-9]+$/i,Id:/^#[-_a-z0-9]+$/i},o=function(e,t){if(!(e.indexOf(t)>=0)){e[e.length]=t}return e},u=function(e){return Array.prototype.slice.call(e)},a=function(r,i){if(!(this instanceof a)){return new a(r,i)}if(i!==n){return(new a(i||t)).find(r)}if(!r){this.elems=[t];return this}var s=r==="body"?[t.body]:typeof r==="string"?a._query(t,r):r===e||r.nodeType?[r]:r instanceof a?u(r.elems):u(r);if(s.length===1&&s[0]==null){s.length=0}this.elems=s;return this};a._query=function(e,t){if(s.Id.test(t)){return[e.getElementById(t.substr(1))]}if(s.Class.test(t)){return u(e.getElementsByClassName(t.substr(1)))}if(s.Tag.test(t)){return u(e.getElementsByTagName(t))}return u(e.querySelectorAll(t))};a._find=function(e,t){if(!t){return e==null?[]:[e]}var n=t.nodeName?[t]:typeof t==="string"?a._query(e,t):[e];return n.length===1&&n[0]==null?[]:n};a.extend=function(e,t){if(!t){t=e;e=a.prototype}for(var n in t){if(hasOwnProperty.call(t,n)){e[n]=t[n]}}return e};a.extend({get:function(e){var t=this.elems;if(e!==n){var r=e<0?t.length+e:e;return t[r]}return t},eq:function(e){return new a(this.get(e))},is:function(e){return this.filter(e).get().length>0},each:function(e){return this.elems.forEach(e.bind(this))},find:function(e){var t=[];this.each(function(n){var r=0,i=a._find(n,e),s=i.length;while(r<s){o(t,i[r++])}});return new a(t)},closest:function(e){var n,r=[],i=(new a(e)).get();this.each(function(e){n=e;while(n!==t&&i.indexOf(n)<0){n=n.parentNode}o(r,n)});return new a(r)},filter:function(e){var t=new a(e),n=[];this.each(function(e){if(t.get().indexOf(e)>=0){o(n,e)}});return new a(n)}});e.hata=a;a.noConflict=function(){if(e.hata===a){e.hata=r}return a}})(window,window.document)
+/* HataJS (c) 2013 github.com/EvgenyZhlobo/hata */
+(function(g,e,m){var p=c,l=!1,h=[],n=function(){if(!l){l=!0;for(var a=0,b=h.length;a<b;a++)h[a]();h=[]}},q=/^[-_a-z0-9]+$/i,r=/^\.[-_a-z0-9]+$/i,s=/^#[-_a-z0-9]+$/i,j=function(a,b){0<=a.indexOf(b)||a.push(b);return a},k=function(a){return Array.prototype.slice.call(a)},c=function(a,b){if(!(this instanceof c))return new c(a,b);if(b!==m)return(new c(b||e)).find(a);if(!a)return this.elems=[],this;if(a instanceof c)return a;var d="body"===a?[e.body]:"string"===typeof a?c._query(e,a):a===g||a.nodeType?[a]:k(a);1===d.length&&null==d[0]&&(d.length=0);this.elems=d;return this};c.extend=function(a,b){b||(b=a,a=c.prototype);for(var d in b)hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a};e.addEventListener("DOMContentLoaded",n,!1);g.addEventListener("load",n,!1);c.extend(c,{ready:function(a){l?a():h.push(a);return this},noConflict:function(){g.hata===c&&(g.hata=p);return c},_query:function(a,b){return s.test(b)?[a.getElementById(b.substr(1))]:r.test(b)?k(a.getElementsByClassName(b.substr(1))):q.test(b)?k(a.getElementsByTagName(b)):k(a.querySelectorAll(b))},_find:function(a,b){if(!b)return null==a?[]:[a];var d=b.nodeName?[b]:"string"===typeof b?c._query(a,b):[a];return 1===d.length&&null==d[0]?[]:d}});c.extend({get:function(a){var b=this.elems;return a!==m?b[0>a?b.length+a:a]:b},eq:function(a){return new c(this.get(a))},is:function(a){return 0<this.filter(a).get().length},each:function(a){for(var b,d=this.get(),c=0;c<d.length&&!(b=a.call(d[c],d[c],c),!1===b);c++);return this},find:function(a){var b=[];this.each(function(d){var f=0;d=c._find(d,a);for(var e=d.length;f<e;)j(b,d[f++])});return new c(b)},closest:function(a){var b,d=[],f=(new c(a)).get();this.each(function(c){for(b=c;b!==e&&0>f.indexOf(b);)b=b.parentNode;(b!==e||a===e)&&j(d,b)});return new c(d)},parents:function(a){var b,d=[],f=(new c(a)).get();this.each(function(a){for(b=a.parentNode;b!==e;)-1<f.indexOf(b)&&j(d,b),b=b.parentNode});return new c(d)},filter:function(a){var b=new c(a),d=[];this.each(function(a){0<=b.get().indexOf(a)&&j(d,a)});return new c(d)}});g.hata=c})(window,window.document);
 
 var nativeForEach = Array.prototype.forEach,
   breaker = {};
@@ -17,49 +14,49 @@ Array.prototype.each = function( iterator, context ) {
   }
 };
 
-hata.extend({
-  each: function( iterator ) {
-    this.get().each( iterator );
-    return this;
-  },
-  bind: function( eventType, callback ) {
-    return this.each(function( elem ) {
-      elem.addEventListener( eventType, callback, false );
-    });
-  },
-  remove: function() {
-    return this.each(function( elem ) {
-      elem.parentNode.removeChild( elem )
-    });
-  },
-  html: function( html ) {
-    if ( html ) {
+(function( hata ) {
+  hata.extend({
+    each: function( iterator ) {
+      this.get().each( iterator );
+      return this;
+    },
+    bind: function( eventType, callback ) {
       return this.each(function( elem ) {
-        elem.innerHTML = html;
+        elem.addEventListener( eventType, callback, false );
       });
-    } else {
-      return this.get( -1 ).innerHTML;
-    }
-  },
-  toggleClass: function( className ) {
-    return this.each(function( elem ) {
-      if ( elem.classList ) {
-        elem.classList.toggle( className );
+    },
+    remove: function() {
+      return this.each(function( elem ) {
+        elem.parentNode.removeChild( elem )
+      });
+    },
+    html: function( html ) {
+      if ( html ) {
+        return this.each(function( elem ) {
+          elem.innerHTML = html;
+        });
       } else {
-        var current = elem.className;
-        var currentArr = current.split(' ');
-        if ( currentArr.indexOf( className ) === -1 ) {
-          elem.className = current + ' ' + className;
-        } else {
-          currentArr.splice( currentArr.indexOf(className), 1)
-          elem.className = currentArr.join(' ');
-        }
+        return this.get( -1 ).innerHTML;
       }
-    });
-  }
-});
-
-var $ = hata.noConflict();
+    },
+    toggleClass: function( className ) {
+      return this.each(function( elem ) {
+        if ( elem.classList ) {
+          elem.classList.toggle( className );
+        } else {
+          var current = elem.className;
+          var currentArr = current.split(' ');
+          if ( currentArr.indexOf( className ) === -1 ) {
+            elem.className = current + ' ' + className;
+          } else {
+            currentArr.splice( currentArr.indexOf(className), 1)
+            elem.className = currentArr.join(' ');
+          }
+        }
+      });
+    }
+  });
+}( hata ));
 
 (function( window, undefined ) {
   // Create elements
@@ -68,7 +65,7 @@ var $ = hata.noConflict();
     for ( var name in attrs ) {
       elem[name] = attrs[name];
     }
-    return $(elem);
+    return hata(elem);
   };
 
   // Load js file
@@ -100,7 +97,7 @@ var $ = hata.noConflict();
   };
 
   var createMobileNavigation = function() {
-    var $nav = $('nav[role=navigation]');
+    var $nav = hata('nav[role=navigation]');
     var $mobile = $ce('div', {
       id: 'mobile_navigation'
     });
@@ -131,7 +128,7 @@ var $ = hata.noConflict();
       linksHub = {};
 
     disqus.getCount = function() {
-      var links = $('.entry-comments a'),
+      var links = hata('.entry-comments a'),
         query = [];
 
       links.each(function( link, i ) {
@@ -159,7 +156,7 @@ var $ = hata.noConflict();
   }();
 
   var addShareLinks = function() {
-    $('.share42init').each(function( item, index ) {
+    hata('.share42init').each(function( item, index ) {
       var url = encodeURIComponent( item.getAttribute('data-url') ),
         title = encodeURIComponent( item.getAttribute('data-title') ),
         path = item.getAttribute('data-path');
@@ -183,12 +180,12 @@ var $ = hata.noConflict();
   };
 
   var recentComments = function() {
-    var $items = $('#dsq-recentcomments-content').remove().find('.dsq-widget-item'),
+    var $items = hata('#dsq-recentcomments-content').remove().find('.dsq-widget-item'),
 
       html = '<ul class="dsq-widget-list">',
 
       addNewItem = function( item ) {
-        var $item = $(item),
+        var $item = hata(item),
           $metaLinks = $item.find('.dsq-widget-meta').find('a'),
 
           avatarUrl = $item.find('.dsq-widget-avatar').get(0).getAttribute('src'),
@@ -217,23 +214,23 @@ var $ = hata.noConflict();
 
     html += '</ul>';
 
-    $('#dsq-recentcomments').html(html);
+    hata('#dsq-recentcomments').html(html);
   };
 
   var mobileIndexPage = function() {
     var clicked = function() {
-      $(this.parentNode.parentNode.nextElementSibling).toggleClass('opened');
+      hata(this.parentNode.parentNode.nextElementSibling).toggleClass('opened');
     };
 
-    $('#content').find('.index-expander').each(function( link ) {
-      $(link).bind('click', clicked);
+    hata('#content').find('.index-expander').each(function( link ) {
+      hata(link).bind('click', clicked);
     });
   };
 
   var goTop = function() {
     var $body = document.body,
 
-      separator = $('#main').get(0).offsetTop,
+      separator = hata('#main').get(0).offsetTop,
 
       scrollTop = function( value ) {
         if ( value !== undefined ) {
@@ -270,8 +267,8 @@ var $ = hata.noConflict();
     // Opera don't scroll when page reloaded
     scrolled();
 
-    $(window).bind('scroll', scrolled);
-    $('.gotop').bind('click', pageUp);
+    hata(window).bind('scroll', scrolled);
+    hata('.gotop').bind('click', pageUp);
   };
 
   // Let's start
