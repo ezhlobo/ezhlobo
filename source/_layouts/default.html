@@ -70,7 +70,7 @@
     {% capture copy_date %}
       {{ start_year }}{% if current_year != start_year %}—{{ current_year }}{% endif %}
     {% endcapture %}
-    <footer role="contentinfo">&copy; {{ site.author }}, {{ copy_date }}</footer>
+    <footer role="contentinfo">&copy; {{ site.author }}<span class="google_author"><a href="https://plus.google.com/103238300991199468390?rel=author">{{ site.author }}</a></span>, {{ copy_date }}</footer>
 
     <div class="gotop"><span>Вверх</span></div>
 
