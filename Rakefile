@@ -29,6 +29,7 @@ new_post_ext    = "markdown"  # default new post file extension when using the n
 new_page_ext    = "markdown"  # default new page file extension when using the new_page task
 server_port     = "4000"      # port for preview server eg. localhost:4000
 
+develop = true
 
 desc "Initial setup for Octopress: copies the default theme into the path of Jekyll's generator. Rake install defaults to rake install[classic] to install a different theme run rake install[some_theme_name]"
 task :install, :theme do |t, args|
@@ -103,9 +104,13 @@ task :generate do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
-  Rake::Task[:optimize_imgs].execute
+  if develop
+    Rake::Task[:optimize_imgs].execute
+  end
   system "jekyll"
-  Rake::Task[:package].execute
+  if develop
+    Rake::Task[:package].execute
+  end
 end
 
 desc "Watch the site and regenerate when it changes"
