@@ -1,0 +1,72 @@
+::selection {
+  background: #b1d2fb;
+  text-shadow: none !important;
+  }
+
+HTML {
+  font-size: 16px;
+  color: #111;
+  }
+
+BODY {
+  padding: 0 1rem;
+  background: $color-bg;
+
+  font-family: $font-main;
+  text-align: center;
+  text-shadow: 0 1px #fff;
+  }
+
+@mixin link($base-color: $color-link) {
+  A {
+    color: $base-color;
+
+    &:hover {
+      color: $color-link-hover;
+      }
+    }
+  }
+
+@include link;
+
+H1,
+H2,
+H3,
+H4,
+H5 {
+  color: $color-header;
+  font-family: $font-header;
+  }
+
+UL {
+  padding: 0;
+  margin: 0;
+  }
+
+LI {
+  list-style: none inside;
+  text-indent: 1.5em;
+  position: relative;
+
+  &:before {
+    display: inline-block;
+    position: absolute;
+    vertical-align: top;
+    top: 0.65em;
+    left: 0.5em;
+    border: 4px solid rgba(37, 34, 14, 0.48);
+    @include border-radius(4px);
+    content: "";
+    }
+  }
+
+BLOCKQUOTE {
+  margin: 0;
+  padding: 0.3rem 1rem;
+  color: #555;
+  }
+
+CITE {
+  line-height: 1em;
+  font-size: 0.8rem;
+  }

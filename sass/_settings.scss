@@ -1,0 +1,50 @@
+$experimental-support-for-svg: true;
+
+$color-link: #0985ce;
+$color-link-hover: darken($color-link, 13%);
+$color-header: rgba(37, 34, 14, 0.92);
+$color-header-light: rgba(37, 34, 14, 0.48);
+
+$color-bg: #f0efe8;
+$color-bg-inside: #fbfaf4;
+$color-border: rgba(37, 34, 14, 0.3);
+
+$font-main: "Trebuchet MS", Arial;
+$font-header: "PT Sans Narrow", "Trebuchet MS", Arial;
+
+$size-responsive-min: 400px;
+$size-width-index: 35rem;
+$size-width-single: 42rem;
+$size-lh: 1.8rem;
+
+$padding-article: 1rem;
+$margin-article: 1rem;
+
+$media-width-big: 70 + ($margin-article * 4);
+$media-width-small: 35 + ($margin-article * 2);
+
+@mixin visual-inside {
+  border: 1px solid $color-border;
+  background: $color-bg-inside;
+  @include border-radius(4px);
+  @include box-shadow(
+    0 0 0 1px rgba(#fff, 0.2),
+    inset 0 0 0 rgba(#fff, 0.9),
+    0 0 15px -5px rgba(37, 34, 14, 0.3)
+    );
+  }
+
+@mixin clearfix {
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    }
+  }
+
+@mixin border-box {
+  @include box-sizing(border-box);
+  }

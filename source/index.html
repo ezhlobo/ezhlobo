@@ -1,11 +1,9 @@
 ---
 layout: default
 ---
-
 {% assign index = true %}
+
 {% for post in paginator.posts %}
 {% assign content = post.content %}
-  <article role="article">
-    {% include article.html %}
-  </article>
+{% include article.html %}
 {% endfor %}

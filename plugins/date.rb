@@ -42,7 +42,7 @@ module Octopress
         date_formatted.gsub!(/%o/, ordinal(date.strftime('%e').to_i))
       end
       if cut
-        format = "%d %B"
+        format = "<i>%d</i> %B"
       end
       date_formatted = Russian::strftime(date, format)
     end
