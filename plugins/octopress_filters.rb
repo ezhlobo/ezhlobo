@@ -131,5 +131,5 @@ module OctopressLiquidFilters
   end
 
 end
-Liquid::Template.register_filter OctopressLiquidFilters
 
+Liquid::Template.register_filter OctopressLiquidFilters
