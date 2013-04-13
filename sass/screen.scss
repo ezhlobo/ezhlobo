@@ -79,6 +79,7 @@
   margin: 2rem auto;
 
   text-align: center;
+  @include clearfix;
 
   @media screen and (max-width: $media-width-big) {
     width: $size-width-index;
@@ -233,12 +234,14 @@
       padding-top: 1rem;
       }
     .article--index {
-      &:nth-child(2n+1) {
+      &:nth-child(2n),
+      &[data-side="l"] {
         float: left;
         clear: left;
         }
 
-      &:nth-child(2n) {
+      &:nth-child(2n+1),
+      &[data-side="r"] {
         float: right;
         clear: right;
         }
