@@ -49,6 +49,8 @@ LI {
   position: relative;
 
   &:before {
+    width: 0;
+    height: 0;
     display: inline-block;
     position: absolute;
     vertical-align: top;
