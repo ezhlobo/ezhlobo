@@ -61,7 +61,7 @@
     };
 
     var addCommentsCount = function( item ) {
-      hata( linksHub[ item.uid ].element ).parent().find( "small" ).get( 0 ).innerHTML = item.comments;
+      hata( linksHub[ item.uid ].element ).parent().find( "small" ).get( 0 ).innerHTML = item.comments || "";
     };
 
     disqus.displayCount = function( response ) {
