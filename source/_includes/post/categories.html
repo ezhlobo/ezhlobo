@@ -1,4 +1,0 @@
-{% capture category %}{% if post %}{{ post.categories | category_links | size }}{% else %}{{ page.categories | category_links | size }}{% endif %}{% endcapture %}
-{% unless category == '0' %}
-{% capture category_inline %}{% if post %}{{ post.categories | category_links }}{% else %}{{ page.categories | category_links }}{% endif %}{% endcapture %}
-{% endunless %}

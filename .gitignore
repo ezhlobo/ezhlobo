@@ -1,7 +1,1 @@
-.bundle
-.sass-cache
-.gist-cache
-.pygments-cache
-.themes
-public
-source/stylesheets/*
+_site
