@@ -3,12 +3,12 @@ layout: default
 ptitle: "Категория "
 ---
 
-<ul class="postlist">
+<ul class="list_posts">
 	{% assign year = "" %}
 	{% for post in site.categories[page.category] %}
 		{% assign current_year = post.date | date: "%Y" %}
 		{% unless year == current_year %}
-	<li class="postlist-year">{{ current_year }}</li>
+	<li class="-year">{{ current_year }}</li>
 		{% assign year = current_year %}
 		{% endunless %}
 	<li>

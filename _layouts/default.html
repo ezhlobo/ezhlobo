@@ -2,27 +2,22 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>{{ page.ptitle }}</title>
-		<meta name="viewport" content="width=device-width">
-
-		<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700&subset=cyrillic' rel='stylesheet' type='text/css'> -->
-		<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=cyrillic' rel='stylesheet' type='text/css'> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="HandheldFriendly" content="true">
 		<link rel="stylesheet" href="/assets/css/main.css">
 	</head>
 	<body>
 		<header>
 			{% include menu.erb %}
-			<p class="blog-title">{{ page.ptitle }}{% if page.category %}«{{ page.category }}»{% endif %}</p>
+			<h1>{{ page.ptitle }}{% if page.category %}«{{ page.category }}»{% endif %}</h1>
 		</header>
-		<section role="content {{ page.role }}">
+		<section{% if page.role %} role="{{ page.role }}"{% endif %}>
 			{{ content }}
-			<div class="footer-underground"></div>
 		</section>
 		<footer>
 			{% include menu.erb %}
 		</footer>
-
-		<script src="/assets/js/main.js"></script>
 	</body>
 </html>

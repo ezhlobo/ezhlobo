@@ -1,5 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700&subset=cyrillic);
-
+/* reset.css */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,19 +48,24 @@ table {
   border-spacing: 0;
   }
 
-/*  */
+/* COMMON */
 
+/* Import font: socicon */
 @font-face {
   font-family: 'socicon';
-  src: url('../fonts/socicon-webfont.eot');
-  src: url('../fonts/socicon-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/socicon-webfont.woff') format('woff'),
-       url('../fonts/socicon-webfont.ttf') format('truetype'),
-       url('../fonts/socicon-webfont.svg#sociconregular') format('svg');
+  src: url('../fonts/socicon-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   }
 
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url('../fonts/opensanscondensed-google.woff') format('woff');
+  }
+
+/* basic */
 html {
   height: 100%;
   }
@@ -75,6 +79,7 @@ h1, h2, h3, h4, h5, h6,
 li.postlist-year,
 .goback {
   font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
   }
 
 h2 {
@@ -126,30 +131,20 @@ a:hover {
   color: #C00;
   }
 
+/* page */
+
 header,
-section[role],
+section,
 footer {
   width: 600px;
   margin: auto;
   }
 
-  header {
-    position: relative;
-    }
+header {
+  position: relative;
+  }
 
-  nav {
-    height: 30px;
-    line-height: 30px;
-    font-size: 0;
-    font-weight: bold;
-    }
-
-    nav a {
-      font-size: 12px;
-      margin-right: 10px;
-      }
-
-  .blog-title {
+  header h1 {
     margin: 5px 0 25px;
     font-size: 50px;
     font-weight: bold;
@@ -157,41 +152,54 @@ footer {
     text-shadow: 0 1px 0 #fff;
     }
 
-section[role~='content'] {
-  min-height: 100%;
-  /*margin-bottom: -305px;*/
+nav {
+  height: 30px;
+  line-height: 30px;
+  font-size: 0;
+  font-weight: bold;
   }
+
+  nav a {
+    font-size: 12px;
+    margin-right: 10px;
+    }
+
+section {
+  min-height: 100%;
+  padding-bottom: 100px;
+  }
+
 section[role~='author'] {
   font-size: 14px;
   line-height: 1.8em;
   }
+
 section[role~='author'] h2,
 section[role~='author'] ul,
 section[role~='author'] p {
   margin-bottom: 10px;
   }
+
 section[role~='author'] li {
   text-indent: 0 !important;
   }
+
 section[role~='author'] li:before {
   left: -15px !important;
   }
 
 .list_projects {
   margin-left: -50px;
-  font-size: 12px;
   line-height: 1.6em;
+  font-size: 12px;
+  font-style: italic;
   text-align: center;
-  font-weight: bold;
+  overflow: auto;
   }
   .list_projects:after {
     display: block;
-    content: "\0020";
+    content: "";
     clear: both;
-    }
-  .list_projects p {
-    font-weight: normal;
-    font-style: italic;
     }
   .list_projects li:before {visibility: hidden;}
   .list_projects li {
@@ -200,12 +208,17 @@ section[role~='author'] li:before {
   .list_projects a {
     width: 90px;
     padding: 110px 5px 0;
-    display: inline-block;
-    background: url(../img/000.png) no-repeat 0 0;
+    display: block;
+    position: relative;
+    background: url(../img/logo_0.png) no-repeat 0 0;
+    font-weight: bold;
+    font-style: normal;
     }
-  .list_projects .-i001 a {background-image: url(../img/001.png);}
-  /*.list_projects .-i002 {background-image: url(../img/002.png);}
-  .list_projects .-i003 {background-image: url(../img/003.png);}*/
+  .list_projects img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
 
 .cover {
   width: 700px;
@@ -238,25 +251,24 @@ section[role~='author'] li:before {
     font-size: 22px;
     opacity: .7;
     box-shadow: 0 0 25px 1px #000;
-    /*border-radius: 2px;*/
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     -ms-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
     }
-  .cover .-vk {bottom: 70px;left: 100px;background: #6086ad;color: #feffff;text-shadow: 1px 1px #315177;}
-  .cover .-vk:before {content: ";";}
-  .cover .-tw {bottom: 70px;left: 50px;background: #00abf0;color: #fff;text-shadow: 0px 1px 0 #005475;}
-  .cover .-tw:before {content: "a";}
-  .cover .-fb {bottom: 70px;left: 150px;background: #3C599F;color: #fff;text-shadow: 1px 1px 0 #283c6b}
-  .cover .-fb:before {content: "b";}
-  .cover .-insta {bottom: 20px;left: 50px;background: #dcc3af;color: #845952;text-shadow: 0px 1px #272727}
-  .cover .-insta:before {content: "x";}
-  .cover .-linkedin {bottom: 20px;left: 100px;background: #0274b3;color: #fff;text-shadow: 1px 1px #024b72}
-  .cover .-linkedin:before {content: "j";}
-  .cover .-gplus {bottom: 20px;left: 150px;background: #dd4b39;color: #fff;text-shadow: 1px 1px 0 #993327;}
-  .cover .-gplus:before {content: "c";}
+  .cover a[href*="vk.com"] {bottom: 70px;left: 100px;background: #6086ad;color: #feffff;text-shadow: 1px 1px #315177;}
+  .cover a[href*="vk.com"]:before {content: ";";}
+  .cover a[href*="twitter.com"] {bottom: 70px;left: 50px;background: #00abf0;color: #fff;text-shadow: 0px 1px 0 #005475;}
+  .cover a[href*="twitter.com"]:before {content: "a";}
+  .cover a[href*="fb.com"] {bottom: 70px;left: 150px;background: #3C599F;color: #fff;text-shadow: 1px 1px 0 #283c6b}
+  .cover a[href*="fb.com"]:before {content: "b";}
+  .cover a[href*="instagram.com"] {bottom: 20px;left: 50px;background: #dcc3af;color: #845952;text-shadow: 0px 1px #272727}
+  .cover a[href*="instagram.com"]:before {content: "x";}
+  .cover a[href*="linkedin.com"] {bottom: 20px;left: 100px;background: #0274b3;color: #fff;text-shadow: 1px 1px #024b72}
+  .cover a[href*="linkedin.com"]:before {content: "j";}
+  .cover a[href*="plus.google.com"] {bottom: 20px;left: 150px;background: #dd4b39;color: #fff;text-shadow: 1px 1px 0 #993327;}
+  .cover a[href*="plus.google.com"]:before {content: "c";}
   .cover a:hover {
     opacity: 1;
     box-shadow: 0 0 5px 0 #000;
@@ -266,6 +278,9 @@ section[role~='author'] li:before {
     -o-transform: scale(1.2); /* Для Opera */
     transform: scale(1.2);
     }
+  .cover a:hover ~ img {
+    -webkit-filter: blur(1px);
+    }
   .cover a:active {
     -moz-transform: rotate(15deg); /* Для Firefox */
     -ms-transform: rotate(15deg); /* Для IE */
@@ -273,21 +288,12 @@ section[role~='author'] li:before {
     -o-transform: rotate(15deg); /* Для Opera */
     transform: rotate(15deg);
     }
-  .cover a:hover ~ img {
-    -webkit-filter: blur(1px);
-    }
 
 article {
-  /*margin-left: 70px;*/
   position: relative;
   line-height: 1.8em;
   font-size: 14px;
   }
-  .goback {
-    position: absolute;
-    top: 7px;
-    left: -70px;
-    }
   .article-title {
     font-size: 30px;
     line-height: 1.2em;
@@ -332,49 +338,35 @@ article {
   margin-top: 30px;
   }
 
-.postlist {}
-  .postlist h2 a {
+.list_posts {}
+  .list_posts h2 a {
     line-height: 25px;
     font-size: 18px;
-    /*color: #444;*/
     font-weight: bold;
     text-shadow: 1px 1px 0 rgba(255,255,255,.5);
     }
-  .postlist h2 a:hover {
-    /*color: #111111;*/
-    }
-  .postlist li {
+  .list_posts li {
     margin-left: 70px;
     margin-bottom: 20px;
     }
-  .postlist time {
-    /*font-weight: bold;*/
-    }
-  li.postlist-year {
+  .list_posts .-year {
     margin-left: 0;
     float: left;
     font-size: 25px;
     font-weight: bold;
     }
-.footer-underground {
-  height: 100px;
-  }
+
 footer {
-  /*width: 600px;*/
   height: 30px;
   padding: 10px 0;
+  margin: 0 0 0 -300px;
   position: absolute;
   bottom: 0;
   left: 50%;
-  margin: 0 0 0 -300px;
-  /*position: relative;*/
-  /*top: 40px;*/
-  line-height: 30px;
-  /*text-align: center;*/
   border-top: 1px solid #ddd;
   background: #ffffff;
+  line-height: 30px;
   color: #666;
-  /*box-shadow: 0 0 200px -2px #000;*/
   }
 
 @media screen and (max-width: 720px) {
@@ -385,7 +377,7 @@ footer {
     }
   header,
   footer,
-  section[role] {
+  section {
     width: calc(100% - 100px);
     margin: 0 50px;
     }
@@ -395,12 +387,14 @@ footer {
   .cover {
     width: calc(100% + 100px);
     height: auto;
-    /*padding: 0 50px;*/
-    /*margin: 0 -50px;*/
-    /*padding: 0 50px;*/
-    /*margin: 0 -50px;*/
     }
     .cover img {
       width: 100%;
       }
+  .list_posts li {
+    margin-left: 0;
+    }
+  .list_posts .-year {
+    float: none;
+    }
   }

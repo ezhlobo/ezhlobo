@@ -5,3 +5,5 @@ pygments: false
 url: http://evgen.zhlobo.info
 permalink: blog/:title
 category_dir: blog/categories
+
+exclude: [Rakefile, README.markdown]
