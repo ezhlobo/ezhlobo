@@ -1,3 +1,24 @@
-## Blog Evgeny Zhlobo
+# About
 
-Powered by [Octopress](http://octopress.org)
+This directory contains data for my site evgen.zhlobo.info.
+
+Powered by [jekyll](http://jekyllrb.com).
+
+# Build
+
+Need to compress all css and html files.
+
+```
+rake build
+```
+
+And deploy `_site` directory after.
+
+# License
+
+The following directories and their contents are Copyright Evgeny Zhlobo. You may not reuse anything therein without my permission:
+
+* _posts
+* _drafts
+
+All other directories and files are MIT Licensed. Feel free to use the HTML and CSS as you please.
