@@ -20,7 +20,7 @@ task :build do
     content = CSSMin.minify(File.open(filepath, "r"))
 
     # calc(a+b) => calc(a + b)
-    content = content.gsub(/calc\((\d+.{1,2})\+(\d+.{1,2})\)/i, 'calc(\1 + \2)')
+    content = content.gsub(/calc\(([\d\.]+.{1,3})\+([\d\.]+.{1,3})\)/i, 'calc(\1 + \2)')
 
     f = File.new(filepath, "w")
     f.puts content
