@@ -9,6 +9,7 @@ ptitle: Блог Евгения Жлобо
 </article>
 <div id="disqus_thread"></div>
 <script>
+{% if page.comments %}
 // var disqus_developer = 1;
 var disqus_identifier = 'http://evgen.zhlobo.info{{page.url}}/';
 var disqus_url = 'http://evgen.zhlobo.info{{page.url}}/';
@@ -17,3 +18,4 @@ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.as
 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());
 </script>
+{% endif %}
