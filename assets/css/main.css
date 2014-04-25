@@ -298,6 +298,31 @@ article {
     font-size: 30px;
     line-height: 1.2em;
     }
+  article figcaption:after {
+    clear: both;
+    content: "\0020";
+    display: block;
+    visibility: hidden;
+    }
+  article img {
+    width: 80%;
+    margin: 0 10%;
+    display: inline-block;
+    }
+  article img._half,
+  article img._third {
+    width: 49%;
+    margin: 0 .5%;
+    float: left;
+    }
+  article img._third {
+    margin-bottom: 1%;
+    }
+  article img._third:last-child {
+    width: 99%;
+    margin: 0 .5%;
+    float: none;
+    }
   article a {
     color: #188418;
     }
