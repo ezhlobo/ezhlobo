@@ -169,25 +169,6 @@ section {
   padding-bottom: 100px;
   }
 
-section[role~='author'] {
-  font-size: 14px;
-  line-height: 1.8em;
-  }
-
-section[role~='author'] h2,
-section[role~='author'] ul,
-section[role~='author'] p {
-  margin-bottom: 10px;
-  }
-
-section[role~='author'] li {
-  text-indent: 0 !important;
-  }
-
-section[role~='author'] li:before {
-  left: -15px !important;
-  }
-
 .list_projects {
   margin-left: -50px;
   line-height: 1.6em;
@@ -218,75 +199,6 @@ section[role~='author'] li:before {
     position: absolute;
     top: 0;
     left: 0;
-    }
-
-.cover {
-  width: 700px;
-  height: 310px;
-  margin-left: -50px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  position: relative;
-  font-family: socicon;
-  }
-  .cover img {
-    width: 700px;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    }
-  .cover a {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    display: block;
-    position: absolute;
-    z-index: 1000;
-    text-decoration: none;
-    color: #444444;
-    text-align: center;
-    line-height: 44px;
-    font-size: 22px;
-    opacity: .7;
-    box-shadow: 0 0 25px 1px #000;
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    -ms-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
-    }
-  .cover a[href*="vk.com"] {bottom: 70px;left: 100px;background: #6086ad;color: #feffff;text-shadow: 1px 1px #315177;}
-  .cover a[href*="vk.com"]:before {content: ";";}
-  .cover a[href*="twitter.com"] {bottom: 70px;left: 50px;background: #00abf0;color: #fff;text-shadow: 0px 1px 0 #005475;}
-  .cover a[href*="twitter.com"]:before {content: "a";}
-  .cover a[href*="fb.com"] {bottom: 70px;left: 150px;background: #3C599F;color: #fff;text-shadow: 1px 1px 0 #283c6b}
-  .cover a[href*="fb.com"]:before {content: "b";}
-  .cover a[href*="instagram.com"] {bottom: 20px;left: 50px;background: #dcc3af;color: #845952;text-shadow: 0px 1px #272727}
-  .cover a[href*="instagram.com"]:before {content: "x";}
-  .cover a[href*="linkedin.com"] {bottom: 20px;left: 100px;background: #0274b3;color: #fff;text-shadow: 1px 1px #024b72}
-  .cover a[href*="linkedin.com"]:before {content: "j";}
-  .cover a[href*="plus.google.com"] {bottom: 20px;left: 150px;background: #dd4b39;color: #fff;text-shadow: 1px 1px 0 #993327;}
-  .cover a[href*="plus.google.com"]:before {content: "c";}
-  .cover a:hover {
-    opacity: 1;
-    box-shadow: 0 0 5px 0 #000;
-    -moz-transform: scale(1.2); /* Для Firefox */
-    -ms-transform: scale(1.2); /* Для IE */
-    -webkit-transform: scale(1.2); /* Для Safari, Chrome, iOS */
-    -o-transform: scale(1.2); /* Для Opera */
-    transform: scale(1.2);
-    }
-  .cover a:hover ~ img {
-    -webkit-filter: blur(1px);
-    }
-  .cover a:active {
-    -moz-transform: rotate(15deg); /* Для Firefox */
-    -ms-transform: rotate(15deg); /* Для IE */
-    -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
-    -o-transform: rotate(15deg); /* Для Opera */
-    transform: rotate(15deg);
     }
 
 article {
@@ -335,13 +247,11 @@ article {
   article blockquote {
     margin-top: 18px;
     }
-  article li,
-  section[role~='author'] li {
+  article li {
     text-indent: 1.5em;
     position: relative;
     }
-  article li:before,
-  section[role~='author'] li:before {
+  article li:before {
     width: 0;
     height: 0;
     display: inline-block;
@@ -409,13 +319,6 @@ footer {
   footer {
     left: 0;
     }
-  .cover {
-    width: calc(100% + 100px);
-    height: auto;
-    }
-    .cover img {
-      width: 100%;
-      }
   .list_posts li {
     margin-left: 0;
     }

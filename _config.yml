@@ -1,6 +1,6 @@
 name: Your New Jekyll Site
 markdown: redcarpet
-pygments: false
+highlighter: null
 
 url: http://evgen.zhlobo.info
 permalink: blog/:title

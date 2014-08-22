@@ -1,56 +1,19 @@
 ---
 layout: default
-ptitle: Евгений Жлобо
-role: author
+ptitle: Блог Евгения Жлобо
 ---
 
-<div class="cover">
-	<a href="http://twitter.com/ezhlobo"></a>
-	<a href="http://vk.com/evgeny.zhlobo"></a>
-	<a href="http://fb.com/evgeny.zhlobo"></a>
-	<a href="http://instagram.com/longlime"></a>
-	<a href="http://www.linkedin.com/in/ezhlobo/"></a>
-	<a href="https://plus.google.com/+EvgenyZhlobo/posts"></a>
-	<img src="/assets/img/cover.jpg" alt="Евгений Жлобо">
-</div>
-
-<h2>Образование</h2>
-<ul>
-	<li>БГУИР, факультет компьютерных систем и сетей. Специальность: программное обеспечение информационных технологий.</li>
-</ul>
-
-<h2>Контакты</h2>
-<ul>
-	<li>Почта: <a href="mailto:evgen.zhlobo@gmail.com">evgen.zhlobo@gmail.com</a>.</li>
-	<li>Скайп: <a href="skype:evgen.zhlobo?chat">evgen.zhlobo</a>.</li>
-</ul>
-<p>Живу в Минске, Беларусь.</p>
-
-<h2>Умею</h2>
-<ul>
-	<li>Семантическая верстка.</li>
-	<li>Разработка веб-приложений.</li>
-	<li>Верстка в ruby-проектах.</li>
-</ul>
-
-<h2>Технологии, Инструменты и Фреймворки</h2>
-<ul>
-	<li><strong>HTML</strong> + haml, slim, <strong>CSS</strong> + sass, less, <strong>JavaScript</strong> + coffeescript.</li>
-	<li>jQuery, Underscore.</li>
-	<li>Тестирование: qunit.js.</li>
-	<li>Git, Github, Bitbucket.</li>
-	<li>Основы node.js и ruby.</li>
-</ul>
-
-<h2>Проекты</h2>
-<ul class="list_projects">
-	<li><a href="http://vkleaner.losky.net"><img src="/assets/img/logo_vkleaner.png" alt="vkleaner's logo">Vkleaner</a>Автор</li>
-	<li><a href="https://ezhlobo.github.io/hata"><img src="/assets/img/logo_hata.png" alt="hata's logo">Hata.js</a>Автор</li>
-	<li><a href="http://losky.net">Lab of the Sky</a>Сооснователь</li>
-</ul>
-
-<h2>Портфолио <i>5 лет, фриланс</i></h2>
-<ul>
-	<li><a href="http://github.com/ezhlobo">github.com/ezhlobo</a></li>
-	<li><a href="http://bitbucket.org/longlime">bitbucket.org/longlime</a></li>
+<ul class="list_posts">
+	{% assign year = "" %}
+	{% for post in site.posts %}
+		{% assign current_year = post.date | date: "%Y" %}
+		{% unless year == current_year %}
+	<li class="-year">{{ current_year }}</li>
+		{% assign year = current_year %}
+		{% endunless %}
+	<li>
+		<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+		<p><time datetime="{{ post.date }}">{{ post.date | date: "%d" | date_day }} {{ post.date | date_rus_month }}</time> {% if post.categories.size > 0 %}опубликовано в {{ post.categories | category_links }}{% endif %}</p>
+	</li>
+	{% endfor %}
 </ul>
