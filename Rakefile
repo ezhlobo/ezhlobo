@@ -1,5 +1,4 @@
 require "cssmin"
-require "closure-compiler"
 require "html_press"
 
 def get_files_by_type(type)
@@ -28,15 +27,6 @@ task :build do
 
     printf "[compressed]: #{filepath}\n"
   end
-
-  # get_files_by_type("js").each do |filepath|
-  #   content = Closure::Compiler.new.compile(File.open(filepath, "r"))
-  #   f = File.new(filepath, "w")
-  #   f.puts content
-  #   f.close
-
-  #   printf "[compressed]: #{filepath}\n"
-  # end
 
   get_files_by_type("html").each do |filepath|
     content = HtmlPress.press(File.open(filepath, "r"))
