@@ -21,7 +21,7 @@ task :build do
   system "bundle exec jekyll build"
 
   compressor_options = {
-    :compress_javscript => true,
+    :compress_javascript => true,
     :javascript_compressor => :yui,
     :compress_css => true,
     :css_compressor => :yui,
