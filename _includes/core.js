@@ -19,7 +19,6 @@
     };
 
     var change_status = function() {
-        console.log($thread.classList.contains(class_name));
         var fn = $thread.classList.contains(class_name) ? hide_btn : show_btn;
 
         return fn();
