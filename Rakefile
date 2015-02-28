@@ -2,19 +2,15 @@ require "./compressor"
 require "digest"
 
 def get_files_by_type(type)
-  files = []
-  Dir.glob("_site/**/*.#{type}").each do |filepath|
-    files << filepath
-  end
-  files
+  Dir.glob("_site/**/*.#{type}")
 end
 
 def update_asset(filepath)
   file = File.open(filepath, "r:utf-8")
   digest = Digest::MD5.file(file).hexdigest
 
-  url = filepath.sub(/^_site/, '')
-  url_array = url.split('.')
+  url = filepath.sub(/^_site/, "")
+  url_array = url.split(".")
   url_digest = "#{url_array[0]}-#{digest}.#{url_array[1]}"
   path_digest = "_site#{url_digest}"
 

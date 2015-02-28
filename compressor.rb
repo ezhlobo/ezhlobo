@@ -1,12 +1,12 @@
 require "htmlcompressor"
 
 class Compressor
-  def html(*argv)
-    common('html', *argv)
+  def html(*args)
+    common('html', *args)
   end
 
-  def css(*argv)
-    common('css', *argv)
+  def css(*args)
+    common('css', *args)
   end
 
   def html_plain(content)
@@ -18,6 +18,7 @@ class Compressor
   end
 
   private
+
     def common(type, input, output = input)
       content = self.send("#{type}_plain", File.open(input, "r:utf-8").read)
 
