@@ -13,4 +13,4 @@ social_networks:
 
 # Build settings
 markdown: kramdown
-exclude: ["Gemfile", "Rakefile", "*.rb", "*.md"]
+exclude: ["Gemfile", "Rakefile", "*.rb", "*.md", "assets/fonts"]
