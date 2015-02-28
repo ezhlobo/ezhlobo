@@ -216,16 +216,21 @@ article img {
     }
 
 article img:not([src]) {
-    display: none;
+    height: 3rem;
+    opacity: 1;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif-light, sans-serif;
+    background-color: #ebebeb;
     }
 
 article figcaption {
     margin-bottom:1.875rem;
-    display:block;
     }
 
 article figcaption ._third:nth-child(3) {
-    width:100%;
+    margin: 1% 0 0;
+    float: left;
+    clear: both;
     }
 
 article figcaption:after {
@@ -251,9 +256,18 @@ aside {
 article figcaption ._half,
 article figcaption ._third:nth-child(1),
 article figcaption ._third:nth-child(2) {
-    width:49%;
-    float:left;
-    margin:0 .5%;
+    width: 49.5%;
+    float: left;
+    }
+
+article figcaption ._half:nth-child(1),
+article figcaption ._third:nth-child(1) {
+    margin-right: .5%;
+    }
+
+article figcaption ._half:nth-child(2),
+article figcaption ._third:nth-child(2) {
+    margin-left: .5%;
     }
 
 @media screen and (max-width: 30rem) {
