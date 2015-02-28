@@ -1,6 +1,6 @@
 (function(window){
     var dsq_load, small_screen, normal_screen, loaded, unsubscribe_all,
-        $element, $trigger, element_offset_top, delta;
+        $element, $trigger, element_offset_top, delta, debouncer;
 
     dsq_load = function() {
         if (!loaded) {
@@ -24,12 +24,15 @@
 
     handlers = {
         scrolling: function() {
-            var trigger_position = window.scrollY + window.outerHeight;
+            clearTimeout(debouncer);
+            debouncer = setTimeout(function() {
+                var trigger_position = window.scrollY + window.outerHeight;
 
-            if (trigger_position + delta > element_offset_top) {
-                dsq_load();
-                window.removeEventListener('scroll', handlers.scrolling);
-            }
+                if (trigger_position + delta > element_offset_top) {
+                    dsq_load();
+                    window.removeEventListener('scroll', handlers.scrolling);
+                }
+            }, 200);
         },
         clicked: function() {
             dsq_load();
