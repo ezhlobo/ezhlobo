@@ -42,3 +42,31 @@
     };
 
 })();
+
+(function() {
+    var $links, i, l, clicked, subscribe;
+
+    // Definition
+
+    $links = document.getElementsByTagName('A');
+
+    // Body
+
+    clicked = function(event) {
+        event.preventDefault();
+        location.href = this.getAttribute('href');
+    };
+
+    subscribe = function($link) {
+        $link.addEventListener('tap', clicked, false);
+    };
+
+    // Add handlers
+
+    if ($links.length) {
+        for (i = 0, l = $links.length; i < l; i++) {
+            subscribe($links[i]);
+        }
+    }
+
+})();
