@@ -1,21 +1,29 @@
 ---
 layout: default
-ptitle: Блог Евгения Жлобо
 ---
 
+<a href="/" class="btn">« All notes</a>
+
 <article role="post">
-	<h1 class="article-title">{{ page.title }}</h1>
-	{{ content }}
+  <h2>{{ page.title }}</h2>
+  <div>
+    {{ content }}
+  </div>
 </article>
-<div id="disqus_thread"></div>
-<script>
-{% if page.comments %}
-// var disqus_developer = 1;
-var disqus_identifier = 'http://evgen.zhlobo.info{{page.url}}/';
-var disqus_url = 'http://evgen.zhlobo.info{{page.url}}/';
-(function () {
-var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = 'http://ezhlobo.disqus.com/embed.js';
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-}());
+
+<aside>
+  <div id="disqus_trigger" class="btn" onclick="this.nextElementSibling.classList.toggle('_show')">Show comments</div>
+  <div id="disqus_thread"></div>
+</aside>
+
+<script async>
+  var disqus_shortname = 'ezhlobo';
+  var disqus_url = '{{ page.permalink }}';
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
-{% endif %}

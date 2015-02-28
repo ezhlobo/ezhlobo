@@ -9,22 +9,13 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.1)
     colorator (0.1)
-    css_press (0.3.2)
-      csspool-st (= 3.1.2)
-      json
-    cssmin (1.0.3)
-    csspool-st (3.1.2)
     execjs (2.3.0)
     fast-stemmer (1.0.2)
     ffi (1.9.6)
     hitimes (1.2.2)
-    html_press (0.8.2)
-      htmlentities
-      multi_css (>= 0.1.0)
-      multi_js (>= 0.1.0)
-    htmlentities (4.3.3)
+    htmlcompressor (0.1.2)
     jekyll (2.5.3)
       classifier-reborn (~> 2.0)
       colorator (~> 0.1)
@@ -48,7 +39,6 @@ GEM
       sass (~> 3.2)
     jekyll-watch (1.2.1)
       listen (~> 2.7)
-    json (1.8.2)
     kramdown (1.5.0)
     liquid (2.6.2)
     listen (2.8.5)
@@ -56,10 +46,6 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     mercenary (0.3.5)
-    multi_css (0.1.0)
-      css_press
-    multi_js (0.1.0)
-      uglifier (~> 2)
     parslet (1.5.0)
       blankslate (~> 2.0)
     posix-spawn (0.3.10)
@@ -71,20 +57,18 @@ GEM
       ffi (>= 0.5.0)
     redcarpet (3.2.2)
     safe_yaml (1.0.4)
-    sass (3.4.10)
+    sass (3.4.13)
     timers (4.0.1)
       hitimes
     toml (0.1.2)
       parslet (~> 1.5.0)
-    uglifier (2.7.0)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
     yajl-ruby (1.2.1)
+    yui-compressor (0.12.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  cssmin (~> 1.0.3)
-  html_press (~> 0.8.2)
+  htmlcompressor (~> 0.1.2)
   jekyll (~> 2.5.3)
+  yui-compressor (~> 0.12.0)

@@ -1,5 +1,4 @@
-require "cssmin"
-require "html_press"
+require "htmlcompressor"
 
 def get_files_by_type(type)
   files = []
@@ -13,23 +12,21 @@ desc "Build project"
 task :build do
   printf "Start\n"
 
-  system "jekyll build"
+  system "bundle exec jekyll build"
 
-  get_files_by_type("css").each do |filepath|
-    content = CSSMin.minify(File.open(filepath, "r"))
+  compressor_options = {
+    :compress_javscript => true,
+    :javascript_compressor => :yui,
+    :compress_css => true,
+    :css_compressor => :yui,
 
-    # calc(a+b) => calc(a + b)
-    content = content.gsub(/calc\(([\d\.]+.{1,3})\+([\d\.]+.{1,3})\)/i, 'calc(\1 + \2)')
+    :remove_intertag_spaces => true
+  }
 
-    f = File.new(filepath, "w")
-    f.puts content
-    f.close
-
-    printf "[compressed]: #{filepath}\n"
-  end
+  Compressor = HtmlCompressor::Compressor.new compressor_options
 
   get_files_by_type("html").each do |filepath|
-    content = HtmlPress.press(File.open(filepath, "r"))
+    content = Compressor.compress(File.open(filepath, "r:utf-8").read)
 
     f = File.new(filepath, "w")
     f.puts content

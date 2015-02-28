@@ -1,9 +1,12 @@
-name: Your New Jekyll Site
-markdown: redcarpet
-highlighter: null
+title: Blog by Eugene Zhlobo
+description: Look at my thoughts
+author: Eugene Zhlobo
 
 url: http://evgen.zhlobo.info
 permalink: blog/:title
 category_dir: blog/categories
 
-exclude: [Rakefile, README.markdown]
+# Build settings
+markdown: kramdown
+
+exclude: ["Gemfile", "Gemfile.lock"]

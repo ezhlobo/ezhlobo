@@ -1,0 +1,258 @@
+html, body,
+h1, h2, h3, h4, h5, h6,
+p, ol, ul, li, a, strong, em,
+header, main, article, aside {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    }
+
+ol, ul {
+    list-style-type: none;
+    }
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    }
+
+.header {
+    padding: 7rem 1.4rem 3rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    }
+
+.header h1 {
+    margin-bottom: .5rem;
+    font-size: 3rem;
+    line-height: 1.3em;
+    color: #2d4eaf;
+    }
+
+.header p {
+    font-size: 1.2rem;
+    color: #333;
+    }
+
+main {
+    max-width: 40.75rem;
+    padding: 0 3rem 0;
+    margin: auto;
+    }
+
+.posts {
+    margin-bottom: 5rem;
+    font-family: 'Roboto',sans-serif;
+    line-height: 1.5em;
+    color: #333;
+    }
+
+.posts li:not(.posts__text) {
+    margin-left: 6rem;
+    margin-bottom: 1rem;
+    }
+
+.posts__text {
+    margin-top: 2rem;
+    margin-bottom: -1.8rem;
+    margin-left: 0;
+    font-size: 1.8rem;
+    line-height: 2rem;
+    }
+
+.posts h2 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    }
+
+.posts a {
+    color: #333;
+    }
+
+.posts a:hover {
+    color: #c00;
+    }
+
+.posts p {
+    font-size: .8rem;
+    }
+
+.btn {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    border-radius: 1rem;
+    border: 1px solid #cbcbcb;
+    color: #666;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    }
+
+.btn:hover {
+    color: #c00;
+    }
+
+article {
+    color: #333;
+    }
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+    margin-left: -2rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Roboto',sans-serif;
+    }
+
+article h1 {
+    font-size: 2.25rem;
+    }
+
+article h2 {
+    font-size:2.15rem;
+    }
+
+article h3 {
+    font-size:2.05rem;
+    }
+
+article h4 {
+    font-size:1.95rem;
+    }
+
+article h5 {
+    font-size:1.85rem;
+    }
+
+article h6 {
+    font-size:1.75rem;
+    }
+
+article p,
+article ul {
+    margin-bottom:1.875rem;
+    font-family:Georgia,'Times New Roman',serif;
+    letter-spacing:.01rem;
+    font-size:1.375rem;
+    line-height:1.5;
+    }
+
+article a {
+    color:#188418;
+    }
+
+article a:hover {
+    color: #c00;
+    }
+
+article blockquote {
+    margin-left:-2rem;
+    margin-right:-2rem;
+    font-style:italic;
+    }
+
+article blockquote p {
+    font-size:1.575rem;
+    }
+
+article ul li {
+    position:relative;
+    text-indent:2rem;
+    }
+
+article ul li:before {
+    width:0;
+    height:0;
+    display:inline-block;
+    position:absolute;
+    vertical-align:top;
+    top:.75rem;
+    left:.35rem;
+    border:.35rem solid rgba(37,34,14,.48);
+    border-radius:.35rem;
+    content:"";
+    }
+
+article img {
+    width:100%;
+    display:block;
+    }
+
+article figcaption {
+    margin-bottom:1.875rem;
+    display:block;
+    }
+
+article figcaption ._third:nth-child(3) {
+    width:100%;
+    }
+
+article figcaption:after {
+    display:block;
+    visibility:hidden;
+    content:"\0020";
+    clear:both;
+    }
+
+aside {
+    margin-bottom:5rem;
+    }
+
+#disqus_trigger {
+    display: none;
+    cursor: pointer;
+    }
+
+#disqus_thread._show {
+    display:block!important;
+    }
+
+article figcaption ._half,
+article figcaption ._third:nth-child(1),
+article figcaption ._third:nth-child(2) {
+    width:49%;
+    float:left;
+    margin:0 .5%;
+    }
+
+@media screen and (max-width: 30rem) {
+    .header h2 {
+        font-size:2.5rem;
+        }
+
+    .header p {
+        font-size:.9rem;
+        }
+
+    li.text-posts {
+        margin-bottom:1rem;
+        }
+
+    article blockquote {
+        margin:0;
+        }
+
+    #disqus_thread {
+        display:none;
+        margin:0 -2rem;
+        }
+
+    #disqus_trigger {
+        display:inline-block;
+        }
+
+    .posts,article {
+        margin:0 -2rem;
+        }
+
+    .posts li,article h1,article h2,article h3,article h4,article h5,article h6 {
+        margin-left:0;
+        }
+}

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
 gem 'jekyll', '~> 2.5.3'
-gem 'cssmin', '~> 1.0.3'
-gem 'html_press', '~> 0.8.2'
+gem 'htmlcompressor', '~> 0.1.2'
+gem 'yui-compressor', '~> 0.12.0'

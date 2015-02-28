@@ -4,7 +4,15 @@ This directory contains data for my site evgen.zhlobo.info.
 
 Powered by [jekyll](http://jekyllrb.com).
 
-# Build
+## Server
+
+```
+jekyll serve --watch
+```
+
+And go to [localhost:4000](http://127.0.0.1:4000/).
+
+## Build
 
 Need to compress all css and html files.
 
@@ -14,7 +22,7 @@ rake build
 
 And deploy `_site` directory after.
 
-# License
+## License
 
 The following directories and their contents are Copyright Evgeny Zhlobo. You may not reuse anything therein without my permission:
 

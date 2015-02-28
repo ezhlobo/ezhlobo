@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /blog/
-
-User-agent: Yandex
-Disallow: /blog/
