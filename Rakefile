@@ -8,6 +8,12 @@ def get_files_by_type(type)
   files
 end
 
+desc "Run server"
+task :server do
+  system "bundle exec jekyll serve --watch"
+end
+task :s => :server
+
 desc "Build project"
 task :build do
   printf "Start\n"
@@ -34,5 +40,4 @@ task :build do
 
     printf "[compressed]: #{filepath}\n"
   end
-
 end

@@ -7,8 +7,10 @@ Powered by [jekyll](http://jekyllrb.com).
 ## Server
 
 ```
-jekyll serve --watch
+rake server
 ```
+
+or `rake s`.
 
 And go to [localhost:4000](http://127.0.0.1:4000/).
 
