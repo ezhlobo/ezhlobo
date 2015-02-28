@@ -44,7 +44,13 @@ class Compressor
         :compress_css => true,
         :css_compressor => :yui,
 
-        :remove_intertag_spaces => true
+        :simple_doctype => false,
+        :remove_multi_spaces => true,
+        :remove_intertag_spaces => true,
+        :remove_quotes => true,
+        :simple_doctype => true,
+        :remove_http_protocol => false,
+        :simple_boolean_attributes => false
       }
     end
 end
