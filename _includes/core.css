@@ -231,7 +231,7 @@ article figcaption ._third:nth-child(2) {
         font-size:.9rem;
         }
 
-    li.text-posts {
+    .posts__text {
         margin-bottom:1rem;
         }
 
@@ -248,11 +248,18 @@ article figcaption ._third:nth-child(2) {
         display:inline-block;
         }
 
-    .posts,article {
+    .posts,
+    article {
         margin:0 -2rem;
         }
 
-    .posts li,article h1,article h2,article h3,article h4,article h5,article h6 {
+    .posts li:not(.posts__text),
+    article h1,
+    article h2,
+    article h3,
+    article h4,
+    article h5,
+    article h6 {
         margin-left:0;
         }
 }
