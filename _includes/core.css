@@ -49,19 +49,6 @@ main {
     color: #333;
     }
 
-.posts li:not(.posts__text) {
-    margin-left: 6rem;
-    margin-bottom: 1rem;
-    }
-
-.posts__text {
-    margin-top: 2rem;
-    margin-bottom: -1.8rem;
-    margin-left: 0;
-    font-size: 1.8rem;
-    line-height: 2rem;
-    }
-
 .posts h2 {
     font-weight: 700;
     font-size: 1.2rem;
@@ -77,6 +64,48 @@ main {
 
 .posts p {
     font-size: .8rem;
+    }
+
+.posts li:not(.posts__text):not(.posts__imagable) {
+    margin-left: 6rem;
+    margin-bottom: 1rem;
+    }
+
+.posts__text {
+    margin-top: 2rem;
+    margin-bottom: -1.8rem;
+    margin-left: 0;
+    font-size: 1.8rem;
+    line-height: 2rem;
+    }
+
+.posts__imagable {
+    margin-bottom: -0.5rem;
+    margin-left: 5rem;
+    top: -1rem;
+    position: relative;
+
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+.posts__imagable h2 {
+    padding: 1rem 1rem 0;
+    }
+
+.posts__imagable p {
+    padding: 0 1rem 0.5rem;
+    }
+
+.posts__imagable h2,
+.posts__imagable p {
+    background-color: rgba(0,0,0,0.5);
+    }
+
+.posts__imagable a,
+.posts__imagable p {
+    color: #fff;
     }
 
 .btn {
@@ -254,7 +283,7 @@ article figcaption ._third:nth-child(2) {
         margin:0 -2rem;
         }
 
-    .posts li:not(.posts__text),
+    .posts li:not(.posts__text):not(.posts__imagable),
     article h1,
     article h2,
     article h3,
@@ -262,5 +291,10 @@ article figcaption ._third:nth-child(2) {
     article h5,
     article h6 {
         margin-left:0;
+        }
+
+    .posts__imagable {
+        margin-left: -1rem;
+        margin-right: -1rem;
         }
 }

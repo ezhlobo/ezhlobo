@@ -10,7 +10,7 @@ layout: default
   <li class="posts__text">{{ current_year }}</li>
     {% assign year = current_year %}
     {% endunless %}
-  <li>
+  <li{% if post.cover %} class="posts__imagable" style="background-image: url({{ post.cover }});"{% endif %}>
     <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
     <p>Posted at <time datetime="{{ post.date }}">{{ post.date | date: "%d %B" }}</time></p>
   </li>
