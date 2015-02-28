@@ -1,12 +1,16 @@
 title: Blog by Eugene Zhlobo
 description: Look at my thoughts
 author: Eugene Zhlobo
+author_photo: https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/10001031_684240984966916_4540737879941934353_o.jpg
 
 url: http://evgen.zhlobo.info
 permalink: blog/:title
 category_dir: blog/categories
 
+social_networks:
+  gplus: EvgenyZhlobo
+  facebook: evgeny.zhlobo
+
 # Build settings
 markdown: kramdown
-
 exclude: ["Gemfile", "Rakefile", "*.rb", "*.md"]
