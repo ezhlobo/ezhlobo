@@ -90,6 +90,7 @@ main {
     font-weight: 700;
     font-size: 1rem;
     text-decoration: none;
+    white-space: nowrap;
     }
 
 .btn:hover {
