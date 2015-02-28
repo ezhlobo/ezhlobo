@@ -9,4 +9,4 @@ category_dir: blog/categories
 # Build settings
 markdown: kramdown
 
-exclude: ["Gemfile", "Gemfile.lock"]
+exclude: ["Gemfile", "Rakefile", "*.rb", "*.md"]
