@@ -21,7 +21,8 @@
                 req.open('GET', font_url, true);
                 on(req, 'load', function() {
                     if (req.readyState === 4) {
-                        inject_content(req.responseText);
+                        // @TODO: Don't inject fonts in first loading
+                        // inject_content(req.responseText);
                         localStorage.font_css_cache = req.responseText;
                         localStorage.font_css_cache_file = font_url;
                     }
