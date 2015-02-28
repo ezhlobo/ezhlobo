@@ -27,7 +27,9 @@
 
     // Add handlers
 
-    $trigger.addEventListener('tap', change_status, false);
+    if ($trigger) {
+        $trigger.addEventListener('tap', change_status, false);
+    }
 
     // Private
 
