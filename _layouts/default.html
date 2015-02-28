@@ -45,7 +45,10 @@
     <script>
 {% include tap.js %}
 {% include core.js %}
-{% if page.path contains '_posts' %}{% include disqus.js %}{% endif %}
+{% if page.path contains '_posts' %}
+  {% include disqus.js %}
+  {% include echo.js %}
+{% endif %}
     </script>
   </body>
 </html>

@@ -215,6 +215,10 @@ article img {
     display:block;
     }
 
+article img:not([src]) {
+    display: none;
+    }
+
 article figcaption {
     margin-bottom:1.875rem;
     display:block;
