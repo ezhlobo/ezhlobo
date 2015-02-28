@@ -271,7 +271,7 @@ article figcaption ._third:nth-child(2) {
     }
 
 @media screen and (max-width: 30rem) {
-    .header h2 {
+    .header h1 {
         font-size:2.5rem;
         }
 
