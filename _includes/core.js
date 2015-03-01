@@ -1,74 +1,63 @@
 (function() {
+    var
+        $thread,
+        class_name, update_btn, hide_btn, show_btn, change_status,
+        _update_classList, _set_html,
 
-    // Definition
+        $trigger = document.getElementById("disqus_trigger");
 
-    var $trigger = document.getElementById('disqus_trigger');
-    var $thread = document.getElementById('disqus_thread');
-    var class_name = '_show';
+    if (!$trigger) return false;
+
+    $thread = document.getElementById("disqus_thread");
+    class_name = "_show";
 
     // Body
 
-    var hide_btn = function() {
-        _update_classList('remove');
-        _set_html('Show');
+    update_btn = function(class_fn, text) {
+        _update_classList(class_fn);
+        _set_html(text);
     };
 
-    var show_btn = function() {
-        _update_classList('add');
-        _set_html('Hide');
-    };
+    hide_btn = update_btn.bind(null, "remove", "Show");
+    show_btn = update_btn.bind(null, "add", "Hide");
 
-    var change_status = function() {
-        var fn = $thread.classList.contains(class_name) ? hide_btn : show_btn;
-
-        return fn();
+    change_status = function() {
+        ($thread.classList.contains(class_name) ? hide_btn : show_btn)();
     };
 
     // Add handlers
 
-    if ($trigger) {
-        $trigger.addEventListener('tap', change_status, false);
-    }
+    $trigger.addEventListener("tap", change_status, false);
 
     // Private
 
-    var _update_classList = function(method) {
+    _update_classList = function(method) {
         $thread.classList[method](class_name);
     };
 
-    var _set_html = function(prefix) {
-        $trigger.innerHTML = prefix + ' comments';
+    _set_html = function(prefix) {
+        $trigger.innerHTML = prefix + " comments";
     };
 
 })();
 
 (function() {
-    var $links, i, l, clicked, subscribe, fix_url;
+    var
+        clicked = function(event) {
+            event.preventDefault();
 
-    // Definition
+            location.href = _fix_url(this.getAttribute("href"));
+        },
+        _fix_url = _fix_url = function(href) {
+            return /\/$/.test(href) ? href : href + "/";
+        },
+        $links = document.getElementsByTagName("A"),
+        number = $links.length,
+        i = 0;
 
-    $links = document.getElementsByTagName('A');
-
-    fix_url = function(href) {
-        return /\/$/.test(href) ? href : href + '/';
-    };
-
-    // Body
-
-    clicked = function(event) {
-        event.preventDefault();
-        location.href = fix_url(this.getAttribute('href'));
-    };
-
-    subscribe = function($link) {
-        $link.addEventListener('tap', clicked, false);
-    };
-
-    // Add handlers
-
-    if ($links.length) {
-        for (i = 0, l = $links.length; i < l; i++) {
-            subscribe($links[i]);
+    if (number) {
+        for (; i < number; i++) {
+            $links[i].addEventListener("tap", clicked, false);
         }
     }
 

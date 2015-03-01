@@ -10,8 +10,6 @@
 
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    {% if page.previous %}<link rel="prev" href="{{ site.url }}{{ page.previous.url }}">{% endif %}
-    {% if page.next %}<link rel="next" href="{{ site.url }}{{ page.next.url }}">{% endif %}
     <link rel="publisher" href="https://plus.google.com/+{{ site.social_networks.gplus }}">
 
     <meta property="og:locale" content="ru_RU">
