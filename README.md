@@ -16,6 +16,12 @@ And go to [localhost:4000](http://127.0.0.1:4000/).
 
 ## Build
 
+Compress all images (`imagemin` required)
+
+```
+for f in assets/posts/*.jpg; do echo "$f"; imagemin $f -p; echo; done
+```
+
 Need to compress all css and html files.
 
 ```
