@@ -3,6 +3,7 @@ layout: post
 title: "Вильнюс & Tech Conference LOGIN 2014"
 description: "История блоггера Жлобо Евгения или почему я буду делиться мыслями"
 cover: /assets/posts/vilnius-01.jpg
+label: /assets/posts/vilnius-label.jpg
 date: 2014-04-13 00:36
 comments: true
 categories:
