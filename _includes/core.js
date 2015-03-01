@@ -43,17 +43,21 @@
 })();
 
 (function() {
-    var $links, i, l, clicked, subscribe;
+    var $links, i, l, clicked, subscribe, fix_url;
 
     // Definition
 
     $links = document.getElementsByTagName('A');
 
+    fix_url = function(href) {
+        return /\/$/.test(href) ? href : href + '/';
+    };
+
     // Body
 
     clicked = function(event) {
         event.preventDefault();
-        location.href = this.getAttribute('href');
+        location.href = fix_url(this.getAttribute('href'));
     };
 
     subscribe = function($link) {
