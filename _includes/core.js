@@ -46,10 +46,7 @@
         clicked = function(event) {
             event.preventDefault();
 
-            location.href = _fix_url(this.getAttribute("href"));
-        },
-        _fix_url = _fix_url = function(href) {
-            return /\/$/.test(href) ? href : href + "/";
+            location.href = this.getAttribute("href");
         },
         $links = document.getElementsByTagName("A"),
         number = $links.length,
