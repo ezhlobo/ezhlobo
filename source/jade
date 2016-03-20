@@ -1,0 +1,8 @@
+doctype
+html.main
+  head
+    meta(charset='utf-8')
+    title Curriculum Vitae – Eugene Zhlobo
+    link(rel='stylesheet' href=stylesheetUrl)
+
+  body.main__body

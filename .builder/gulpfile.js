@@ -1,6 +1,12 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
+var jade = require('gulp-jade');
+var rename = require('gulp-rename');
+
+var locals = {
+  stylesheetUrl: 'build/main.css'
+};
 
 var dirSource = function(path) {
   return '../source/' + path;
@@ -13,8 +19,18 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('../build'))
 })
 
-gulp.task('watch', function() {
-  gulp.watch(dirSource('**/*css'), ['styles'])
+gulp.task('views', function() {
+  return gulp.src(dirSource('jade'))
+    .pipe(rename('index'))
+    .pipe(jade({
+      locals: locals
+    }).on('error', console.log))
+    .pipe(gulp.dest('..'))
 })
 
-gulp.task('default', ['styles', 'watch'])
+gulp.task('watch', function() {
+  gulp.watch(dirSource('**/*css'), ['styles'])
+  gulp.watch(dirSource('**/jade'), ['views'])
+})
+
+gulp.task('default', ['styles', 'views', 'watch'])
