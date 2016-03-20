@@ -1,7 +1,64 @@
-.main, .main__body {
+.main,
+:root {
     height: 100%;
+    font-size: 62.5%;
+    font-weight: 300;
+    font-family: Arial, sans;
     }
 
-.main {
-    font-size: 62.5%;
+.main__body {
+    max-width: 90rem;
+    min-height: 100%;
+    padding: 3rem 1.5rem;
+    margin: auto;
+    box-sizing: border-box;
+
+    a {
+        color: #2980b9;
+
+        &:hover {
+            color: #e74c3c;
+            }
+        }
+    }
+
+.main__description {
+    font-size: 1.6rem;
+
+    & + & {
+        margin-top: 2rem;
+        }
+    }
+
+.main__list {
+    .main__description + & {
+        margin-top: 0rem;
+        margin-left: 1.5rem;
+        }
+
+    li {
+        margin-top: 0.5rem;
+        }
+    }
+
+.main__avatar {
+    width: 20%;
+    min-width: 9rem;
+    margin: 1rem 0 1rem 1rem;
+    float: right;
+
+    img {
+        width: 100%;
+        display: block;
+        }
+    }
+
+.main__section {
+    & + & {
+        margin-top: 5rem;
+        }
+    }
+
+.main__content {
+    margin-left: 3rem;
     }

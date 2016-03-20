@@ -1,0 +1,17 @@
+.public {
+    font-size: 1.6rem;
+
+    @media screen and (min-width: 76.7rem) {
+        padding: 2rem 2rem;
+        margin: -2rem -2rem;
+        background-color: #ebebeb;
+        }
+    }
+
+.public__content {
+    margin-left: 3rem;
+    }
+
+.public__item-time {
+    color: #888;
+    }

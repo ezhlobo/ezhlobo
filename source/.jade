@@ -3,7 +3,39 @@ html.main
   head
     meta(charset='utf-8')
     title Curriculum Vitae – Eugene Zhlobo
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href=stylesheetUrl)
 
   body.main__body
-    include ./components/projects/
+    .main__sections
+      .main__avatar
+        img(src=assetUrl('components/main/avatar.png') alt='Portrait of Eugene Zhlobo')
+
+      .main__section
+
+        h1.title Eugene Zhlobo
+
+        p.main__description Freelance web developer from 2008.
+        p.main__description I am
+        ul.main__description.main__list
+          li founder of <a href='https://github.com/frontrockets'>frontrockets</a> – the approach to the organization of front-end based on independent components,
+          li maintainer of <a href='https://github.com/pukhalski/tap'>tap</a> – 1Kb library for easy unified handling of user interactions such as mouse, touch and pointer events,
+          li creator of <a href='https://github.com/ezhlobo/vkleaner'>vkleaner</a> – open source chrome extension for vk.com that hides unwanted posts.
+
+      .main__section
+        include ./components/projects/
+
+      .main__section
+        h2.title Also familiar with
+
+        .main__content
+          .tags
+            - var tags = ['Grunt', 'Gulp', 'Webpack', 'Jade', 'Markdown', 'React', 'ES-2015', 'WebSocket', 'Canvas', 'QUnit', 'SVG', 'Less', 'Stylus', 'PostCSS', 'PHP', 'Node.js'].sort()
+            - tags = tags.map(function(item){ return Array.isArray(item) ? tagsItemWrapper(item[0], item[1]) : tagsItemWrapper(item); })
+            != tags.join(', ')
+
+      .main__section
+        include ./components/public/
+
+      .main__section
+        include ./components/contacts/

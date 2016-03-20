@@ -1,0 +1,36 @@
+.projects-item
+  .projects-item__title
+    h3.title
+      != (roles||[]).map(function(role) { return '<strong class="projects-item__title-role">'+capitalize(role.replace(/a\s/, ''))+'</strong>' }).join(' and ')
+      |  at
+      |  #[strong.projects-item__title-project= projectName]
+
+      if company
+        span.projects-item__title-company (contract with #[strong= company])
+
+  if time
+    .projects-item__time
+      != time
+
+  if responsibility
+    p.project-item__responsibility
+      != responsibility
+
+  if peculiarity
+    p.project-item__peculiarity
+      != peculiarity
+
+  - var tagWrapper = function(value, element){ return '<span class="project-item__'+element+'">'+value+'</span>'; }
+
+  mixin tagsWrapper(list, element)
+    != list.map(function(item){ return tagWrapper(item, element); }).join(', ')
+
+  if tags && tags.length
+    .project-item__tags
+      +tagsWrapper(tags, 'tags-item')
+
+  if points && points.length
+    .project-item__tags
+      .project-item__tags-title Were also used:
+
+      +tagsWrapper(points, 'tags-item')

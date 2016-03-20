@@ -1,2 +1,75 @@
 .projects
-  h1 Projects
+  .projects__title
+    h2.title Last projects
+
+  .projects__list
+    - var tag = function(name, info) {return '<em>'+name+'</em>' + (info ? ' <span>('+info+')</span>' : '');}
+
+    mixin item(projectName, roles, time, responsibility, peculiarity, tags, points)
+      - var tags = (tags||[]).map(function(item){ return Array.isArray(item) ? tag(item[0], item[1]) : tag(item) })
+      - var points = (points||[]).map(function(item){ return Array.isArray(item) ? tag(item[0], item[1]) : tag(item) })
+
+      if Array.isArray(projectName)
+        - var company = projectName[1]
+        - var projectName = projectName[0]
+
+      include ./item/layout
+
+    .projects__item
+      +item('Greetzly.com', ['a developer'],
+        'February 2016 – Present',
+        'Development of a responsive redesigned version and back-end integration.',
+        'User interface is based on independent reusable components connected to each other by EventBus.',
+        ['Scss', 'Slim', 'CoffeeScript + jQuery', ['Ruby on Rails', 'integration only']],
+        ['Google Maps', 'HTML5 Media', 'frontrockets']
+        )
+
+    .projects__item
+      +item(['Confidential project', 'Datarockets LLC'], ['a head of front-end development'],
+        'September 2015 – February 2016',
+        'Implementation of new features, support of a current version, development of a redesigned version and back-end integration.',
+        'A part of the project is separated and works like SPA. User interface is based on independent reusable components connected to each other by EventBus.',
+        ['Scss', 'Slim', 'CoffeeScript + jQuery', ['Ruby on Rails', 'helpers, customizations of built-in elements, implement components structure and so forth']],
+        ['Google Maps', 'OpenStreetMap', 'Yandex.Maps', 'Leaflet', 'D3', 'Backbone + Marionette', 'JST']
+        )
+
+    .projects__item
+      +item(['Confidential project', 'Digitalizm LLC'], ['a developer'],
+        'September 2015 – October 2015',
+        'Development of a responsive redesigned version and back-end integration.',
+        'Optimisation for mobiles performance. Reducing Time To First Byte. Support of old versions of browsers and Opera Mini. Lazy load of data. Social networks sharing.',
+        ['Scss', 'Haml', 'JavaScript + jQuery', ['Ruby on Rails', 'integration only']]
+        )
+
+    .projects__item
+      +item(['Confidential project', 'WorkSoftBench LLC'], ['a developer'],
+        'June 2015 – September 2015',
+        'Development of a redesigned version and implementation of new features. Back-end integration.',
+        'Single page application. Data visualisation inventing (graphics and charts) and its implementation.',
+        ['Scss', 'HTML', 'JavaScript + jQuery', ['Django', 'integration only']],
+        ['Backbone', 'D3', 'Grunt']
+        )
+
+    .projects__item
+      +item('Dev.by', ['a developer'],
+        'March 2015 – May 2015',
+        'Development of a responsive redesigned version, support of a current version.',
+        'Single page application on vanilla js.',
+        ['Scss', 'Slim', 'JavaScript + jQuery', ['Ruby on Rails', 'integration only'], 'frontrockets']
+        )
+
+    .projects__item
+      +item('Upnetwork.ru', ['a developer'],
+        'November 2014 – March 2015',
+        'Implementation of new features and support of a current version',
+        'During this project we have created our own new frontend methodology and framework: <a href="https://github.com/frontrockets">frontrockets</a>.',
+        ['Scss', 'Slim', 'JavaScript + jQuery', ['Ruby on Rails', 'integration only'], 'frontrockets']
+        )
+
+    .projects__item
+      +item('KYKY.org', ['a project manager', 'a team lead'],
+        'October 2014 – August 2015',
+        'Development of a new magazine’s version in the web.',
+        '',
+        ['Scss', 'Slim', 'CoffeeScript + jQuery', ['Ruby on Rails', 'integration only'], 'frontrockets']
+        )

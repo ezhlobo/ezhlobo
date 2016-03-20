@@ -4,14 +4,32 @@ var concat = require('gulp-concat');
 var jade = require('gulp-jade');
 var rename = require('gulp-rename');
 var watch = require('gulp-watch');
+var del = require('del');
+
+var assetUrl = function(name) {
+  return 'build/' + name;
+};
 
 var locals = {
-  stylesheetUrl: 'build/main.css'
+  assetUrl: assetUrl,
+  stylesheetUrl: assetUrl('main.css'),
+  capitalize: function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  },
+  tagsItemWrapper: function(name, info) {
+    return '<span class="tags__item"><em>' + name + '</em>' + (info ? ' <span>(' + info + ')</span>' : '') + '</span>';
+  },
 };
 
 var dirSource = function(path) {
   return '../source/' + path;
 };
+
+gulp.task('clean', function() {
+  return del(['../build'], {
+    force: true
+  });
+})
 
 gulp.task('styles', function() {
   return gulp.src([dirSource('*css'), dirSource('**/*css')])
@@ -29,15 +47,24 @@ gulp.task('views', function() {
     .pipe(gulp.dest('..'))
 })
 
+gulp.task('images', function() {
+  return gulp.src(dirSource('**/*.png'))
+    .pipe(gulp.dest('../build'))
+})
+
 // Necessary for `watch` function
 gulp.task('watch', function() {})
 
 watch(dirSource('**/*css'), function() {
-  gulp.start(['styles'])
+  gulp.start(['clean', 'images', 'styles'])
 })
 
 watch(dirSource('**/*jade'), function() {
   gulp.start(['views'])
 })
 
-gulp.task('default', ['styles', 'views', 'watch'])
+watch(dirSource('**/*.(png|jpg|svg)'), function() {
+  gulp.start(['clean', 'images', 'styles'])
+})
+
+gulp.task('default', ['styles', 'views', 'images', 'watch'])

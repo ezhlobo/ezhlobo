@@ -1,0 +1,41 @@
+.projects-item {
+    font-size: 1.6rem;
+
+    p {
+        margin-top: 1rem;
+        }
+    }
+
+.projects-item__title {
+    strong {
+        font-weight: bold;
+        }
+    }
+
+.projects-item__title-project {
+    margin-right: 0.5em;
+    color: #3498db;
+    }
+
+.projects-item__title-company {
+    font-size: 1.28rem;
+    display: inline-block;
+    }
+
+.projects-item__time {
+    color: #888;
+    }
+
+.project-item__tags {
+    margin-top: 1rem;
+
+    em {
+        padding: 0.1rem;
+        background-color: #ebebeb;
+        font-family: Inconsolata, Consolas;
+        }
+    }
+
+.project-item__tags-item {
+    font-size: 1.4rem;
+    }
