@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var jade = require('gulp-jade');
 var rename = require('gulp-rename');
+var watch = require('gulp-watch');
 
 var locals = {
   stylesheetUrl: 'build/main.css'
@@ -28,9 +29,15 @@ gulp.task('views', function() {
     .pipe(gulp.dest('..'))
 })
 
-gulp.task('watch', function() {
-  gulp.watch(dirSource('**/*css'), ['styles'])
-  gulp.watch(dirSource('**/.jade'), ['views'])
+// Necessary for `watch` function
+gulp.task('watch', function() {})
+
+watch(dirSource('**/*css'), function() {
+  gulp.start(['styles'])
+})
+
+watch(dirSource('**/*jade'), function() {
+  gulp.start(['views'])
 })
 
 gulp.task('default', ['styles', 'views', 'watch'])
