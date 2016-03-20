@@ -5,6 +5,7 @@ var jade = require('gulp-jade');
 var rename = require('gulp-rename');
 var watch = require('gulp-watch');
 var del = require('del');
+var md5 = require('gulp-md5-plus');
 
 var assetUrl = function(name) {
   return 'build/' + name;
@@ -26,7 +27,7 @@ var dirSource = function(path) {
 };
 
 gulp.task('clean', function() {
-  return del(['../build'], {
+  return del.sync(['../build', '../index.html'], {
     force: true
   });
 })
@@ -52,19 +53,27 @@ gulp.task('images', function() {
     .pipe(gulp.dest('../build'))
 })
 
+gulp.task('assets', function() {
+  return gulp.src('../build/**')
+    .pipe(md5(6, '../index.html'))
+    .pipe(gulp.dest('../build'))
+})
+
 // Necessary for `watch` function
-gulp.task('watch', function() {})
+gulp.task('watch', function() {
+  watch(dirSource('**/*css'), function() {
+    gulp.start(['styles'])
+  })
 
-watch(dirSource('**/*css'), function() {
-  gulp.start(['clean', 'images', 'styles'])
-})
+  watch(dirSource('**/*jade'), function() {
+    gulp.start(['views'])
+  })
 
-watch(dirSource('**/*jade'), function() {
-  gulp.start(['views'])
-})
-
-watch(dirSource('**/*.(png|jpg|svg)'), function() {
-  gulp.start(['clean', 'images', 'styles'])
+  watch(dirSource('**/*.(png|jpg|svg)'), function() {
+    gulp.start(['images'])
+  })
 })
 
 gulp.task('default', ['styles', 'views', 'images', 'watch'])
+
+gulp.task('build', ['clean', 'styles', 'images', 'views'])
