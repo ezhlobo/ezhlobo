@@ -1,0 +1,7 @@
+.main, .main__body {
+    height: 100%;
+    }
+
+.main {
+    font-size: 62.5%;
+    }

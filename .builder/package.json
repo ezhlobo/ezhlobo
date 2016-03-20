@@ -1,0 +1,12 @@
+{
+  "name": "e.zhlobo.info",
+  "description": "",
+  "scripts": {
+    "start": "./node_modules/.bin/gulp"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.2.0"
+  }
+}
