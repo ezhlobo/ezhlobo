@@ -20,7 +20,7 @@ gulp.task('styles', function() {
 })
 
 gulp.task('views', function() {
-  return gulp.src(dirSource('jade'))
+  return gulp.src(dirSource('.jade'))
     .pipe(rename('index'))
     .pipe(jade({
       locals: locals
@@ -30,7 +30,7 @@ gulp.task('views', function() {
 
 gulp.task('watch', function() {
   gulp.watch(dirSource('**/*css'), ['styles'])
-  gulp.watch(dirSource('**/jade'), ['views'])
+  gulp.watch(dirSource('**/.jade'), ['views'])
 })
 
 gulp.task('default', ['styles', 'views', 'watch'])
