@@ -28,7 +28,7 @@ var dirSource = function(path) {
 };
 
 gulp.task('clean', function() {
-  return del.sync(['../build', '../index.html'], {
+  return del.sync(['../build', './.publish'], {
     force: true
   });
 })
