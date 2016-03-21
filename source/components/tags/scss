@@ -1,9 +1,12 @@
 .tags {
+    line-height: 1.8;
     font-size: 1.6rem;
     }
 
 .tags__item {
-    padding: 0.1rem;
-    background-color: #ebebeb;
-    font-family: Inconsolata, Consolas;
+    em {
+        padding: 0.1rem;
+        background-color: #ebebeb;
+        font-family: Inconsolata, Consolas, 'Roboto Mono', 'Droid Sans Mono', 'Ubuntu Mono', Menlo, monospace, Courier New;
+        }
     }

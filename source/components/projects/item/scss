@@ -28,14 +28,4 @@
 
 .project-item__tags {
     margin-top: 1rem;
-
-    em {
-        padding: 0.1rem;
-        background-color: #ebebeb;
-        font-family: Inconsolata, Consolas;
-        }
-    }
-
-.project-item__tags-item {
-    font-size: 1.4rem;
     }

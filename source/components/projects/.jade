@@ -3,12 +3,7 @@
     h2.title Last projects
 
   .projects__list
-    - var tag = function(name, info) {return '<em>'+name+'</em>' + (info ? ' <span>('+info+')</span>' : '');}
-
     mixin item(projectName, roles, time, responsibility, peculiarity, tags, points)
-      - var tags = (tags||[]).map(function(item){ return Array.isArray(item) ? tag(item[0], item[1]) : tag(item) })
-      - var points = (points||[]).map(function(item){ return Array.isArray(item) ? tag(item[0], item[1]) : tag(item) })
-
       if Array.isArray(projectName)
         - var company = projectName[1]
         - var projectName = projectName[0]

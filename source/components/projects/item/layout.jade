@@ -27,7 +27,9 @@
 
   if tags && tags.length
     .project-item__tags
-      +tagsWrapper(tags, 'tags-item')
+      .tags
+        - tags = tags.map(function(item){ return Array.isArray(item) ? tagsItemWrapper(item[0], item[1]) : tagsItemWrapper(item); })
+        != tags.join(', ')
 
   if points && points.length
     .project-item__tags
