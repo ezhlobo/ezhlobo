@@ -30,7 +30,7 @@ html.main
 
         .main__content
           .tags
-            - var tags = ['Grunt', 'Gulp', 'Webpack', 'Jade', 'Markdown', 'React', 'ES-2015', 'WebSocket', 'Canvas', 'QUnit', 'SVG', 'Less', 'Stylus', 'PostCSS', 'PHP', 'Node.js'].sort()
+            - var tags = ['Grunt', 'Gulp', 'Webpack', 'Jade', 'Markdown', 'React', 'ES-2015', 'WebSocket', 'Canvas', 'QUnit', 'SVG', 'Less', 'Stylus', 'PostCSS', 'PHP', 'Node.js', 'Meteor'].sort()
             - tags = tags.map(function(item){ return Array.isArray(item) ? tagsItemWrapper(item[0], item[1]) : tagsItemWrapper(item); })
             != tags.join(', ')
 
