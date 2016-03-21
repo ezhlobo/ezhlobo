@@ -6,9 +6,10 @@ var rename = require('gulp-rename');
 var watch = require('gulp-watch');
 var del = require('del');
 var md5 = require('gulp-md5-plus');
+var ghPages = require('gulp-gh-pages');
 
 var assetUrl = function(name) {
-  return 'build/' + name;
+  return name;
 };
 
 var locals = {
@@ -45,7 +46,7 @@ gulp.task('views', function() {
     .pipe(jade({
       locals: locals
     }).on('error', console.log))
-    .pipe(gulp.dest('..'))
+    .pipe(gulp.dest('../build'))
 })
 
 gulp.task('images', function() {
@@ -54,9 +55,16 @@ gulp.task('images', function() {
 })
 
 gulp.task('assets', function() {
-  return gulp.src('../build/**')
-    .pipe(md5(6, '../index.html'))
+  return gulp.src(['../build/**/*.css', '../build/**/*.png', '../build/**/*.jpg'])
+    .pipe(md5(6, '../build/index.html'))
     .pipe(gulp.dest('../build'))
+})
+
+gulp.task('deploy', function() {
+  return gulp.src(['../build/**'])
+    .pipe(ghPages({
+      force: true
+    }))
 })
 
 // Necessary for `watch` function

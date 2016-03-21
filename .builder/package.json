@@ -3,12 +3,14 @@
   "description": "",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
-    "build": "./node_modules/.bin/gulp build && ./node_modules/.bin/gulp assets"
+    "build": "./node_modules/.bin/gulp build && ./node_modules/.bin/gulp assets",
+    "deploy": "npm run build && ./node_modules/.bin/gulp deploy"
   },
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-jade": "^1.1.0",
     "gulp-md5-plus": "^0.2.0",
     "gulp-rename": "^1.2.2",

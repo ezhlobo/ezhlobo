@@ -1,6 +1,6 @@
 /.builder/node_modules
 
+.publish
 /build
-index.html
 
-/.builder/npm-debug.log
+npm-debug.log
